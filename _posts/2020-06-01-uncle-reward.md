@@ -18,7 +18,7 @@ categories: Ethereum
  (여기서 Heaviest란 각 블락을 Root로 하는 Subtree의 크기를 말함)
  
  
- #### 2가지의 Uncle Rewards
+#### 2가지의 Uncle Rewards
  
  1. Uncles Reward   
  Uncle Block의 마이너에게 들어가는 reward   
