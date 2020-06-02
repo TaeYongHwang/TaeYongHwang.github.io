@@ -16,10 +16,10 @@ minimal_mistakes_skin    : "default" # "air", "aqua", "contrast", "dark", "dirt"
 
 # Site Settings
 locale                   : "en-US"
-title                    : "Site Title"
+title                    : "공부한 내용 정리"
 title_separator          : "-"
 subtitle                 : # site tagline that appears below site title in masthead
-name                     : "Your Name"
+name                     : "Taeyong"
 description              : "An amazing website."
 url                      : "https://TaeYongHwang.github.io"
 baseurl                  : ""
@@ -93,9 +93,9 @@ analytics:
 
 # Site Author
 author:
-  name             : "Your Name"
+  name             : "Taeyong"
   avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "I am an **amazing** person."
+  bio              : "개발 일지"
   location         : "Somewhere"
   email            :
   links:
