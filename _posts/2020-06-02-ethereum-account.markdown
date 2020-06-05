@@ -16,7 +16,7 @@ categories: Ethereum
 - getCode 호출 시, '0x' 반환값을 갖는다.
 
 2. CA (Contract Account)
-- 솔리디티를 이용해 만든 코드를 블록체인 상에 deploy시킬 때, 해당 코드가 인스턴스화되는데 이 떄 해당 인스턴스를 가리키는 포인터 역할을 한다.
+- 솔리디티를 이용해 만든 코드(Smart Contract)를 블록체인 상에 deploy시킬 때, 해당 코드가 인스턴스화되는데 이 떄 해당 인스턴스를 가리키는 포인터 역할을 한다.
 - 동일한 동작을 하는 CA는 얼마든지 있을 수 있지만, 해당 주소는 유일하다. (블록체인 상 모든 주소는 유일하다.)
 - EOA에서 CA의 함수 호출이 가능하며, CA에서 다른 CA의 함수를 호출하는 것 역시 가능하다. (Internal Transaction으로 동작한다.)
 - getCode 호출 시, 해당 컨트랙트에 대한 binary information이 반환된다.
