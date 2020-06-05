@@ -32,7 +32,7 @@ transfer(address,uint256) : '0xa9059cbb'
 ```
  위의 모양을 보면 알겠지만, function selector는 함수의 이름, 각 인자의 타입을 통해서 해싱하게 된다.
  
- # event 호출과 이더리움 로그 분석
+# event 호출과 이더리움 로그 분석
  ```solidity
 emit x(uint indexed age, uint indexed height);
 ```
