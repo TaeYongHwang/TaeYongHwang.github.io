@@ -7,6 +7,8 @@ categories: Ethereum
 # 코인과 토큰
 - 코인이란, 자신만의 메인 블록체인이 존재해 독립적으로 돌아갈 수 있는 암호화폐를 지칭 (ex. Ether, BTC, ...)
 - 토큰이란, 메인 블록체인 내의 기본적인 규약을 지키면서 종속되어 돌아가는 암호화폐를 지칭 (ex. Ethereum 안에서 돌아가는 USDT, ...)
+- fungible token (대체 가능한 토큰) : unique하지 않고, 동일한 가치의 다른 코인으로 완벽히 대체할 수 있는 코인 (ex. ERC20)
+- NFT (Non-Fungible Token - 대체 불가능 토큰) : 본질적으로 unique해 다른 토큰과 구분되는 토큰 (ex. ERC721)
 
 # ERC20 토큰이란,
  이더리움 블록체인 상에서 돌아가는 Smart Contract의 일종으로, Ethereum Request For Comments - 20에서 정한 규격을 만족하는 토큰들을 모아서 지칭한다. 여기서 정한 규격이란 6개의
