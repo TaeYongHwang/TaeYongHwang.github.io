@@ -1,4 +1,5 @@
 ---
+layout: Ethereum
 title: "Ethereum Transaction에 대하여"
 date: 2020-06-11
 categories: Ethereum Transaction
