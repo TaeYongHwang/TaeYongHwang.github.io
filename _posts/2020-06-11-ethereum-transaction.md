@@ -91,6 +91,10 @@ categories: Ethereum Transaction
 - 아직 트랜잭션이 transaction pool에 남아있는 경우에 한해서, nonce를 이용해 트랜잭션을 재전송하여 취소된 효과를 볼 수 있다.
 - 이중 지불 문제를 방지시킨다. (같은 nonce에 여러 트랜잭션이 전송된 경우, 제일 높은 가스비를 지불한 트랜잭션을 처리시킨다.)
 
+# Transaction vs Internal Transaction
+- Transaction : EOA 주소에서 발생하는 트랜잭션으로, on-chain 상에 기록된다. 
+- Internal Transaction : CA에서 발생하는 트랜잭션으로, Transaction의 결과로 실행되는 트랜잭션이며, on-chain 상에 기록되지 않는다.
+
 
 
 
