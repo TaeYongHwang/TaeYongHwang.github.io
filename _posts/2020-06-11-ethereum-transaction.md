@@ -75,6 +75,15 @@ categories: Ethereum Transaction
 5.1 이더 전송 : B에 송금
 5.2 B가 contract : contract code 실행
 
+# 마이너의 트랜잭션 처리 과정
+1. 블록에 담을 트랜잭션들을 Transaction Pool에서 가져온다.
+2. 트랜잭션들에 대해 Nonce, Gas Price로 순서를 정한다.
+3. 마이너가 트랜잭션에 설정된 값 (Gas_Limit * Gas_Price) 만큼을 발신 주소로부터 tx fee로 가져온다.
+4. 트랜잭션을 실행하며, 명령어에 따라 가스를 소모한다.   
+4.1 남는 가스는 해당 트랜잭션 발신 주소로 다시 돌려준다.   
+4.2 가스가 모자라는 경우 트랜잭션이 Revert되며, 가스는 다시 돌려주지 않는다. (Out Of Gas Exception)
+5. 실행된 트랜잭션들을 블록에 담는다. (개별 Gas Limit의 총합은 Block Gas Limit를 넘길 수 없다.)
+
 
 # Nonce
 - 특정 주소에서  __보내는__ 트랜잭션에 할당된 번호로, 거래 전송 시마다 nonce 값이 1씩 증가하며, 한 주소에 동일한 nonce를 갖는 트랜잭션은 존재하지 않는다.
