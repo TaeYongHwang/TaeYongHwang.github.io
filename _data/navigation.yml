@@ -1,8 +1,6 @@
+# main links
 main:
-  - title: "블로그 방문하기"	  - title: "블로그 방문하기"
-    url: https://devinlife.com/	    url: https://devinlife.com/
-  - title: "ethereum"
-    url: /categories/ethereum/
-  - title: "Categories"	  - title: "Categories"
-    url: /categories/	    url: /categories/
-  - title: "Tags"	  - title: "Tags"
+  - title: "블로그 방문하기"
+    url: https://taeyonghwang.github.io/
+  - title: "About"
+    url: /about/
