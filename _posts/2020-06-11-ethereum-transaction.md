@@ -1,6 +1,8 @@
 ---
 title: "Ethereum Transaction에 대하여"
 date: 2020-06-11
+toc: true
+toc_sticky: true
 categories: Ethereum
 ---
 
