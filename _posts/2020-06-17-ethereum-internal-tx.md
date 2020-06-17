@@ -1,4 +1,49 @@
-{
+---
+title: "Ethereum Internal Transaction에 대하여"
+date: 2020-06-17
+toc: true
+toc_sticky: true
+categories: Ethereum
+---
+
+# Internal 트랜잭션이란?
+ 일반적인 EOA -> CA 트랜잭션을 A라고 할 때, A가 실행되면서 CA의 내부에서 A에 대한 결과로 서브 트랜잭션들이 수행되는데 이것을
+Internal Transaction이라고 한다. On-chain 상에 기록되는 정보는 오직 A 까지이며 서브 트랜잭션들은 On-chain 상에 기록되지 않는다.
+그렇다면, Internal 트랜잭션 정보들은 어떻게 얻을 수 있을까?
+
+## Internal 트랜잭션 특징
+- Normal Tx가 성공했다고 해서 모든 internal tx가 성공하는 것은 아니다. 
+- Internal Tx의 gas는 tx에 종속된다.
+- on-chain 상에 기록되지 않기 때문에, geth, parity 등의 이더리움 클라이언트 API를 사용해야 한다.
+- Internal Tx를 통해 이더 전송, function call, contract creation 등이 가능하다. (주체가 EOA일 뿐이다)
+- Normal Tx에 종속돼서 일어난다. (parent hash가 존재)
+
+## Internal 트랜잭션 정보 얻는 법
+ web3 같은 라이브러리를 이용해서는 해당 정보들을 얻어올 수 없고 geth, parity 같은 이더리움 클라이언트 노드를 이용해야 한다. (여기서는 parity를 사용한다.)
+ 
+ > https://openethereum.github.io/wiki/JSONRPC-trace-module
+
+ 위의 링크를 들어가보면, trace module이라고 적혀있는 것을 확인할 수 있다. 이 말 처럼, Internal 트랜잭션을 얻어오기 위해선 특정 블록, 특정 트랜잭션 단위로   
+ 해당 정보를 replay 시켜야 한다. 이더스캔을 써보면 __Internal Txns__ 필드를 볼 수 있는데, 이 칸 역시 이때까지의 모든 블록을 replay해서 얻은 정보를 가공해
+ 제공하는 것이라고 생각한다. 
+```solidity
+  const res = await axios.post('parity rpc 호출 가능한 uri', {
+    method: 'trace_block',
+    params: ['0x...'],
+    id: 1,
+    jsonrpc: '2.0',
+  });
+```
+ node.js에서는 위와 같은 방식으로 호출이 가능하다.
+
+## Internal 트랜잭션 정보
+- 4개의 주요 인터널 트랜잭션이 존재한다.
+- type이 'call'인 것과 'create'이 존재하며, 두 타입에 대해서 action, result 필드가 미묘하게 달라지는 것을 확인할 수 있다.
+
+### 1. delegate call
+- A 컨트랙트에서 B 컨트랙트 호출 시, B의 스토리지를 변경시키지 않고, B의 코드를 A에서 실행한다.
+- msg.sender, msg.value가 컨트랙트 A 호출 시와 같고, 변동되지 않는다. 
+```json
   action: {
     callType: 'delegatecall',
     from: '0xae76c84c9262cdb9abc0c2c8888e62db8e22a0bf',
@@ -19,6 +64,12 @@
   transactionPosition: 18,
   type: 'call'
 }
+```
+
+
+### 2. static call
+- 상태를 변경하거나 읽는 경우를 구분하기 위해 사용하며, 다른 컨트랙트로 redirect되어도 상태 변경이 일어나지 않음을 보장한다.
+```json
 {
   action: {
     callType: 'staticcall',
@@ -40,6 +91,11 @@
   transactionPosition: 18,
   type: 'call'
 }
+```
+
+### 3. call
+- A 컨트랙트에서 B 컨트랙트 호출 시, B의 스토리지를 변경시키고, msg.sender는 컨트랙트 A가 된다.
+```json
 {
   action: {
     callType: 'call',
@@ -61,24 +117,11 @@
   transactionPosition: 18,
   type: 'call'
 }
-{
-  action: {
-    callType: 'call',
-    from: '0xf0542ed44d268c85875b3b84b0e7ce0773e9aeef',
-    gas: '0x8fc',
-    input: '0x',
-    to: '0x35e4876102389f13d78381d317ff4612412a56c9',
-    value: '0xb1a2bc2ec50000'
-  },
-  blockHash: '0xaa20f7bde5be60603f11a45fc4923aab7552be775403fc00c2e6b805e6297dbe',
-  blockNumber: 10000000,
-  result: { gasUsed: '0x0', output: '0x' },
-  subtraces: 0,
-  traceAddress: [ 0 ],
-  transactionHash: '0xc2f74145a896b6a5b938216d130f5c382d3d77d5d501ab41e43681cbebcf3b97',
-  transactionPosition: 21,
-  type: 'call'
-}
+```
+
+### 4. create
+- 새로운 컨트랙트를 생성한다.
+```json
 {
   action: {
     creationMethod: 'create',
@@ -100,3 +143,6 @@
   transactionPosition: 24,
   type: 'create'
 }
+```
+
+ 

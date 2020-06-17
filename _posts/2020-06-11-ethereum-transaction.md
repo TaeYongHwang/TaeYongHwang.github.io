@@ -3,7 +3,6 @@ title: "Ethereum Transaction에 대하여"
 date: 2020-06-11
 toc: true
 toc_sticky: true
-# toc_label: TOC 제목 설정
 categories: Ethereum
 ---
 
@@ -62,7 +61,8 @@ categories: Ethereum
 - 토큰 전송 트랜잭션인 경우, contractAddress에는 보낼 토큰 주소 정보가, to 필드에는 받는 주소 정보가 들어있다.
 
 
-# 트랜잭션 처리 순서 ( 코어 이더리움 프로그래밍 책 참조 )
+# 트랜잭션 처리 순서 ( 코어 이더리움 프
+로그래밍 책 참조 )
 ```
 특정 주소 A -> B 로 트랜잭션을 보낸다고 할 때.
 ```
