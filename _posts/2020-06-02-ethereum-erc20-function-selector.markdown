@@ -36,7 +36,7 @@ transfer(address,uint256) : '0xa9059cbb'
 ```
  위의 모양을 보면 알겠지만, function selector는 함수의 이름, 각 인자의 타입을 통해서 해싱하게 된다.
  
- ## fallback 함수에 대해
+## fallback 함수에 대해
 ```solidity
 function() payable { ... }
 ```
@@ -76,7 +76,7 @@ event Transfer(address from, address to, uint tokens);
 또한 transfer 함수 등에서 Transfer 이벤트를 호출해야 된다는 규격은 없기 때문에, 모든 토큰 전송 부분에서 해당 이벤트를 emit하지 않는다면,
 토큰 전송 정보에 대해 트랜잭션 로그를 분석해서 정확한 정보를 알아낼 수 있는 방법은 없을 것이다.
 
-#### 즉, 실질적으로 ERC20 규격을 만족하면서, 내부적으로 기대되지 않는 행동을 취하는 경우에는 알 방법이 없다.
+__즉, 실질적으로 ERC20 규격을 만족하면서, 내부적으로 기대되지 않는 행동을 취하는 경우에는 알 방법이 없다.__
 
 
 
