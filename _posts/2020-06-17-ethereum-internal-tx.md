@@ -41,8 +41,10 @@ Internal Transaction이라고 한다. On-chain 상에 기록되는 정보는 오
 - type이 'call'인 것과 'create'이 존재하며, 두 타입에 대해서 action, result 필드가 미묘하게 달라지는 것을 확인할 수 있다.
 
 ### 1. delegate call
-- A 컨트랙트에서 B 컨트랙트 호출 시, B의 스토리지를 변경시키지 않고, B의 코드를 A에서 실행한다.
+- A 컨트랙트에서 B 컨트랙트 호출 시, B의 스토리지를 변경시키지 않고, B의 코드를 A에서 실행한다. (caller의 상태만 바꿀 수 있고, callee의 상태
+를 바꿀 수 없다.)
 - msg.sender, msg.value가 컨트랙트 A 호출 시와 같고, 변동되지 않는다. 
+
 ```json
   action: {
     callType: 'delegatecall',
@@ -69,6 +71,7 @@ Internal Transaction이라고 한다. On-chain 상에 기록되는 정보는 오
 
 ### 2. static call
 - 상태를 변경하거나 읽는 경우를 구분하기 위해 사용하며, 다른 컨트랙트로 redirect되어도 상태 변경이 일어나지 않음을 보장한다.
+- msg.sender는 컨트랙트 A가 된다.
 ```json
 {
   action: {
