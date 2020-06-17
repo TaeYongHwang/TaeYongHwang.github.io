@@ -1,5 +1,5 @@
 ---
-title: "Ethereum Info""
+title: "Ethereum Info"
 permalink: /categories/ethereum/
 layout: category
 author_profile: true
