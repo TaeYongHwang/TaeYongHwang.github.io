@@ -7,5 +7,5 @@ main:
     url: /categories/
   - title: "Ethereum"
     url: /categories/ethereum/
-  - title: "About"
-    url: /about/
+  - title: "Bitcoin"
+    url: /bitcoin/
