@@ -2,7 +2,6 @@
 layout: Ethereum
 title: "Ethereum Transaction에 대하여"
 date: 2020-06-11
-categories: Ethereum Transaction
 ---
 
 # Web3 getTransaction, getTransactionReceipt 구조
