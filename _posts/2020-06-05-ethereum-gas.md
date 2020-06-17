@@ -1,5 +1,5 @@
 ---
-layout: Ethereum
+categories: Ethereum
 title: "Ethereum Gas"
 date: 2020-06-05
 ---
