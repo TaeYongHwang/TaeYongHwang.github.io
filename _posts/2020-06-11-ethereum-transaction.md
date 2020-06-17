@@ -9,7 +9,7 @@ categories: Ethereum
 
 # Web3 getTransaction, getTransactionReceipt 구조
 
-### getTransaction
+## getTransaction
 ```
 {
   blockHash: '0x43f34ae1b9cda49947a4b1001081356f80144d6ce2299ae7f959befe2125f55c',
@@ -39,7 +39,7 @@ categories: Ethereum
 - 만약 토큰 생성 트랜잭션이라면, to 필드가 비어있고 input 필드에 해당 컨트랙트 정보가 적힐 것이다.
 - 토큰 전송 트랜잭션인 경우에는 to 필드에 해당 컨트랙트 주소가, input 필드에 호출된 컨트랙트 함수 정보가 저장될 것이다 (function selector, parameters, ...)
 
-### getTransactionReceipt
+## getTransactionReceipt
 ```
 {
   blockHash: '0x43f34ae1b9cda49947a4b1001081356f80144d6ce2299ae7f959befe2125f55c',
