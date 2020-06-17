@@ -2,5 +2,9 @@
 main:
   - title: "블로그 방문하기"
     url: https://taeyonghwang.github.io/
+  - title: "Categories"
+    url: /categories/
+  - title: "Ethereum"
+    url: /ethereum/
   - title: "About"
     url: /about/
