@@ -1,7 +1,7 @@
 ---
+layout: Ethereum
 title: "Ethereum Gas"
 date: 2020-06-05
-categories: Ethereum 
 ---
 
 # Gas 란?
