@@ -5,6 +5,6 @@ main:
   - title: "Categories"
     url: /categories/
   - title: "Ethereum"
-    url: /ethereum/
+    url: /categories/ethereum/
   - title: "About"
     url: /about/

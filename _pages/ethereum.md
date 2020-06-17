@@ -1,5 +1,5 @@
 ---
-title: "윤동주 작품집"
+title: "Ethereum Info""
 permalink: /categories/ethereum/
 layout: category
 author_profile: true
