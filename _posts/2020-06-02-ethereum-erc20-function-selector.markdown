@@ -1,6 +1,8 @@
 ---
 title: "이더리움 ERC20 토큰과 Function Selector"
 date: 2020-06-02
+toc: true
+toc_sticky: true
 categories: Ethereum
 ---
 
@@ -33,6 +35,16 @@ categories: Ethereum
 transfer(address,uint256) : '0xa9059cbb'
 ```
  위의 모양을 보면 알겠지만, function selector는 함수의 이름, 각 인자의 타입을 통해서 해싱하게 된다.
+ 
+ ## fallback 함수에 대해
+```solidity
+function() payable { ... }
+```
+- 컨트랙트 호출 시, 주어진 함수 식별자와 일치하는 함수가 없는 경우 실행
+- 어떤 함수의 호출도 없이 컨트랙트가 이더를 수신한 경우 실행
+- fallback 함수가 정의되지 않은 경우, 이더를 받으면 예외가 발생하며 이더를 돌려준다.
+- 정의된 경우, CA의 이더량이 올라가게 된다. (CA에서도 토큰뿐만 아닌 이더도 전송이 가능하다.)
+ 
  
 # event 호출과 이더리움 로그 분석
  ```solidity

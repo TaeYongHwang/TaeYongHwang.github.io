@@ -1,6 +1,8 @@
 ---
 categories: Ethereum
 title: "Ethereum Gas"
+toc: true
+toc_sticky: true
 date: 2020-06-05
 ---
 
