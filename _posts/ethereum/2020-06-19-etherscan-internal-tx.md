@@ -29,5 +29,5 @@ categories: Ethereum
  내가 알아봤을 때, 총 3가지 경우에 대해 메시지를 파싱해서 적어준다.
  1. Contract Creation 
  2. Suicide (self-destruct)
- 3. 이더 전송 중에서도 Normal call (delegate, static은 파싱하지 않는다.)
+ 3. 이더 전송 중에서도 Normal call (delegate, static은 파싱하지 않는다.)   
  이 세 가지를 이더스캔에서는 가장 중요한 메시지라고 생각하는 듯 하다.
