@@ -23,7 +23,7 @@ categories: Ethereum
  이 정보들을 자세히 보고 싶다면 __Parity Trace__ 를 클릭해 볼 수 있다.
  
 ## 이더스캔 알고리즘
- 이 부분에서 하는 말을 이해하기 위해서는 아래의 정보를 숙지해야 한다.    
+ 이 부분에서 하는 말과 관련된 정보들 링크이다.    
 > [Internal Tranaction 정보](https://taeyonghwang.github.io/ethereum/ethereum-internal-tx/)
 
  내가 알아봤을 때, 총 3가지 경우에 대해 메시지를 파싱해서 적어준다.
