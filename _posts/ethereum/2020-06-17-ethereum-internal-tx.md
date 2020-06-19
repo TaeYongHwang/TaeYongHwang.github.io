@@ -37,8 +37,8 @@ Internal Transaction이라고 한다. On-chain 상에 기록되는 정보는 오
  node.js에서는 위와 같은 방식으로 호출이 가능하다.
 
 ## Internal 트랜잭션 정보
-- 4개의 주요 인터널 트랜잭션이 존재한다.
-- type이 'call'인 것과 'create'이 존재하며, 두 타입에 대해서 action, result 필드가 미묘하게 달라지는 것을 확인할 수 있다.
+- 5개 (내가 확인한 개수)의 주요 인터널 트랜잭션이 존재한다.
+- type이 'call'인 것과 'create', 'suicide'이 존재하며, 두 타입에 대해서 action, result 필드가 미묘하게 달라지는 것을 확인할 수 있다.
 
 ### 1. delegate call
 - A 컨트랙트에서 B 컨트랙트 호출 시, B의 스토리지를 변경시키지 않고, B의 코드를 A에서 실행한다. (caller의 상태만 바꿀 수 있고, callee의 상태
@@ -148,4 +148,28 @@ Internal Transaction이라고 한다. On-chain 상에 기록되는 정보는 오
 }
 ```
 
+### 5. suicide (self-destruct)
+> [self-destruct 관련 정보](https://ethereum.stackexchange.com/questions/315/why-are-selfdestructs-used-in-contract-programming)
+````json
+    {
+        "action": {
+            "address": "0x6f268ae132e4a05197cdd0ca4cb0f29e92edfe2f",
+            "balance": "0x0",
+            "refundAddress": "0x0000000000b3f879cb30fe243b4dfee438691c04"
+        },
+        "blockHash": "0xb73b9ffc32d91b4b712aaa281993668a2345fafcb150c3fd3c0586efeb87070a",
+        "blockNumber": 10000004,
+        "result": null,
+        "subtraces": 0,
+        "traceAddress": [
+            5,
+            0,
+            0,
+            0
+        ],
+        "transactionHash": "0x3a0fda35d511cf590ac5138dd95604cff5a922722b5d1a751c7b20b37ead55d1",
+        "transactionPosition": 115,
+        "type": "suicide"
+    }
+````
  
