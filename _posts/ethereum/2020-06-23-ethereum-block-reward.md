@@ -1,6 +1,6 @@
 ---
 title: "Ethereum 블록 리워드 계산"
-date: 2020-06-19
+date: 2020-06-23
 toc: true
 toc_sticky: true
 categories: Ethereum

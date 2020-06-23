@@ -1,6 +1,6 @@
 ---
 title: "Ethereum Swarm, Whisper 간략 정리"
-date: 2020-06-19
+date: 2020-06-23
 toc: true
 toc_sticky: true
 categories: Ethereum
