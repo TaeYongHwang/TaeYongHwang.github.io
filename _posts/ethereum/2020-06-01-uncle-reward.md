@@ -20,15 +20,19 @@ categories: Ethereum
  
 #### 2가지의 Uncle Rewards
  
- 1. Uncles Reward   
- Uncle Block의 마이너에게 들어가는 reward   
- (Uncle_Block_Height - Block_Height + 8) * Miner's Fixed Reward / 8 의 수식을 통해 리워드가 지급된다.   
- Uncle_Block_Height는 web3의 getUncle을 통해 알아낼 수 있고, Fixed Reward란 Gas, Uncle reward를 제외한 기본 Block Reward를 말함
+ 1. Uncles Reward
+ > (Uncle_Block_Height - Block_Height + 8) * Miner's Fixed Reward / 8    
+
+- Uncle Block의 마이너에게 들어가는 reward. 위의 수식을 통해 리워드가 지급된다.   
+- Uncle_Block_Height는 web3의 getUncle을 통해 알아낼 수 있다.
+- Fixed Reward란 Gas, Uncle reward를 제외한 기본 Block Reward를 말함
  
- 2. Uncle Inclusion Reward   
- 메인 체인의 Block Miner에게 들어가는 reward   
- 최대 2개의 Uncle Block까지만 reward를 받을 수 있고,   각 Fixed Reward의 3.125%   
- 예를 들어 2개의 Uncle Block을 포함하고 있다면 6.25%의 리워드를 추가로 받을 수 있다. 
+ 2. Uncle Inclusion Reward
+ > Fixed Reward의 3.125% 
+  
+- 메인 체인의 Block Miner에게 들어가는 reward   
+- 최대 2개의 Uncle Block까지 리워드를 받을 수 있다.   
+ ex) 2개의 Uncle Block을 포함시 6.25%의 리워드를 추가로 받을 수 있다. 
   
   
 
