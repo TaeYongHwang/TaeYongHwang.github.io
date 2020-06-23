@@ -23,9 +23,9 @@ categories: Ethereum
 ### 2. Reference
 - 클라이언트가 컨텐츠에 대해 검색, 접근할 수 있게 해주는 파일의 unique id
 - id는 64 bytes, 앞 32bytes 는 파일의 해싱값, 뒤 32bytes는 복호화 키 
-- collision free : two different blobs of data will never map the samp identifier
-- deterministic : 같은 컨텐츠는 같은 Id를 갖는다.
-- uniformly distributed
+- __collision free__ : two different blobs of data will never map the samp identifier
+- __deterministic__ : 같은 컨텐츠는 같은 Id를 갖는다.
+- __uniformly distributed__
 
 ### 3. Manifest
 - manifest is a data structure describing file collections
