@@ -45,7 +45,7 @@ Internal Transaction이라고 한다. On-chain 상에 기록되는 정보는 오
 를 바꿀 수 없다.)
 - msg.sender, msg.value가 컨트랙트 A 호출 시와 같고, 변동되지 않는다. 
 
-![screenshot](https://ibb.co/9bWNLhV)
+![screenshot](https://ifh.cc/g/d7saAS.png)
 
 ```json
   action: {
