@@ -45,6 +45,8 @@ Internal Transaction이라고 한다. On-chain 상에 기록되는 정보는 오
 를 바꿀 수 없다.)
 - msg.sender, msg.value가 컨트랙트 A 호출 시와 같고, 변동되지 않는다. 
 
+![screenshot](https://ibb.co/9bWNLhV)
+
 ```json
   action: {
     callType: 'delegatecall',
@@ -72,6 +74,7 @@ Internal Transaction이라고 한다. On-chain 상에 기록되는 정보는 오
 ### 2. static call
 - 상태를 변경하거나 읽는 경우를 구분하기 위해 사용하며, 다른 컨트랙트로 redirect되어도 상태 변경이 일어나지 않음을 보장한다.
 - msg.sender는 컨트랙트 A가 된다.
+
 ```json
 {
   action: {
@@ -150,7 +153,7 @@ Internal Transaction이라고 한다. On-chain 상에 기록되는 정보는 오
 
 ### 5. suicide (self-destruct)
 > [self-destruct 관련 정보](https://ethereum.stackexchange.com/questions/315/why-are-selfdestructs-used-in-contract-programming)
-````json
+```json
     {
         "action": {
             "address": "0x6f268ae132e4a05197cdd0ca4cb0f29e92edfe2f",
@@ -171,5 +174,5 @@ Internal Transaction이라고 한다. On-chain 상에 기록되는 정보는 오
         "transactionPosition": 115,
         "type": "suicide"
     }
-````
+```
  
