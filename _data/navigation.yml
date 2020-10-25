@@ -9,5 +9,7 @@ main:
     url: /categories/ethereum/
   - title: "Bitcoin"
     url: /categories/bitcoin/
+  - title: "Algorithm"
+    url: /categories/algorithm/
   - title: "Tool"
     url: /categories/tool/

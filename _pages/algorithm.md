@@ -6,4 +6,4 @@ author_profile: true
 taxonomy: Algorithm
 ---
 
-툴 관련 정보 정리
+알고리즘 관련 정보 정리
