@@ -18,6 +18,14 @@
 - Model: Controller에서 요청한 job에 대한 실제 처리 로직
 - View: 처리가 끝난 후 유저가 보게되는 화면 (모델과의 의존성이 존재함)
 
+## Test
+- jest, supertest 등으로 테스트 진행 가능 (git pre-commit hook 이용)
+- postman으로 테스트 진행해 jenkins에 넣어 원격 서버에서 pull 당길 때마다 테스트 진행 가능
+
+## 사용 시 불편했던 점
+- **Dynamically typed language**(javascript) 사용으로 유지, 보수가 힘들었다.
+- npm 라이브러리 다운 시, typing이 안돼있는 라이브리의 경우 해석이 더 오래걸렸다. (jsDoc를 잘 작성해놔야 할듯)
+
 
 
 > [Express 공식 사이트](https://expressjs.com/)
