@@ -6,6 +6,8 @@ toc_sticky: true
 categories: Ethereum
 ---
 
+__실제 상용화는 이루어지지 않음__   
+
 # Swarm이란?
 - 이더리움의 탈중앙화된 데이터 저장소 (분산 p2p), IPFS와 유사
 - 해시를 사용해 임의의 스웜 파일에 접근 가능함 (max 4kb)
