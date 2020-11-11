@@ -98,6 +98,9 @@ categories: Ethereum
 - Internal Transaction : CA에서 발생하는 트랜잭션으로, Transaction의 결과로 실행되는 트랜잭션이며, on-chain 상에 기록되지 않는다.
 
 
+# 이더리움에서의 CPFP
+- 비트코인에서는 CPFP 방식으로 __stuck__ 상태의 트랜잭션을 confirm 시킬 수 있지만, 이더리움에선
+그냥 같은 nonce 값으로 더 높은 gas price를 줘서 같은 트랜잭션을 재전송 시키면 된다.
 
 
 
