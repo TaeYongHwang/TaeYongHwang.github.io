@@ -9,7 +9,7 @@ categories: Ethereum
 # 블록 리워드를 계산하기 위해서 필요한 것들
 - 해당 블록에서의 Fixed Reward 를 알아야 한다.
 > 각 블록헤이트 마다의 Fixed Reward   
-> [0, 4370000) : 5 Ether
+> [0, 4370000) : 5 Ether   
 > [4370000, 7280000) : 3 Ether   
 > [7280000, ~) : 2 Ether
 
