@@ -20,5 +20,9 @@ categories: Ethereum
 - 동일한 동작을 하는 CA는 얼마든지 있을 수 있지만, 해당 주소는 유일하다. (블록체인 상 모든 주소는 유일하다.)
 - EOA에서 CA의 함수 호출이 가능하며, CA에서 다른 CA의 함수를 호출하는 것 역시 가능하다. (Internal Transaction으로 동작한다.)
 - getCode 호출 시, 해당 컨트랙트에 대한 binary information이 반환된다.
- 
+
+## 구분하는 법
+-  __web3.eth.getCode("<궁금한 주소>")__ 의 결과값이 "0x"인 경우 EOA 이다! 
+
+
 
