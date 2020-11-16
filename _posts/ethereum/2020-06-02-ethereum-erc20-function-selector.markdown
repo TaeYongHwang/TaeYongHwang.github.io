@@ -33,6 +33,8 @@ categories: Ethereum
  만약 function selector값이 충돌하는 경우에는 에러를 반환하고 어떠한 바이트코드도 생성하지 않는다. 즉, 컴파일러에서 function selector가 겹치지 않음을 보장해준다.
  ```solidity
 transfer(address,uint256) : '0xa9059cbb'
+
+Transfer(address,address,uint256) : '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef'
 ```
  위의 모양을 보면 알겠지만, function selector는 함수의 이름, 각 인자의 타입을 통해서 해싱하게 된다.
  
@@ -60,6 +62,7 @@ indexed가 붙지 않는 변수에 대해서는 data 영역에 저장된다.
 ```solidity
 event Transfer(address indexed from, address indexed to, uint tokens);
 ```
+
 1. Transfer 이벤트 자체의 해시값이 topics[0]에 저장된다.
 2. 특정 토큰에 대한 송신자 (from)가 topics[1]에 저장된다.
 3. 특정 토큰에 대한 수신자 (to)가 topics[2]에 저장된다.
