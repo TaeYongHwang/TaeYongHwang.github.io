@@ -21,7 +21,7 @@ Internal Transaction이라고 한다. On-chain 상에 기록되는 정보는 오
 ## Internal 트랜잭션 정보 얻는 법
  web3 같은 라이브러리를 이용해서는 해당 정보들을 얻어올 수 없고 geth, parity 같은 이더리움 클라이언트 노드를 이용해야 한다. (여기서는 parity를 사용한다.)
  
- > <https://openethereum.github.io/wiki/JSONRPC-trace-module>
+ > <https://openethereum.github.io/JSONRPC-trace-module#trace_block>
 
  위의 링크를 들어가보면, trace module이라고 적혀있는 것을 확인할 수 있다. 이 말 처럼, Internal 트랜잭션을 얻어오기 위해선 특정 블록, 특정 트랜잭션 단위로   
  해당 정보를 replay 시켜야 한다. 이더스캔을 써보면 __Internal Txns__ 필드를 볼 수 있는데, 이 칸 역시 이때까지의 모든 블록을 replay해서 얻은 정보를 가공해
