@@ -22,7 +22,7 @@ categories: Ethereum
 - getCode 호출 시, 해당 컨트랙트에 대한 binary information이 반환된다.
 
 ## 구분하는 법
--  __web3.eth.getCode("<궁금한 주소>")__ 의 결과값이 "0x"인 경우 EOA 이다! 
+-  __web3.eth.getCode(&lt;궁금한 주소&gt;)__ 의 결과값이 "0x"인 경우 EOA 이다! 
 
 
 
