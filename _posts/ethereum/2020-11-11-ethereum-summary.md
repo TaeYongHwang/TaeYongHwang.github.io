@@ -1,6 +1,6 @@
 ---
 categories: Ethereum
-title: "Ethereum 개요"
+title: "Ethereum 부가 정리"
 toc: true
 toc_sticky: true
 date: 2020-11-11
@@ -51,13 +51,6 @@ date: 2020-11-11
 
 ## 5. CA1 -- (delegate call) --> CA2 --> EOA (CA2 에서 이더 전송이 일어나는 경우)
 - CA1의 __context__ 에서 실행되므로, CA1의 이더가 EOA로 전송된다. 
-
-
-
-
-
-
-
 
 
 
