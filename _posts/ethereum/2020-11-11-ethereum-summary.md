@@ -43,10 +43,14 @@ date: 2020-11-11
 - fallback 함수 없는 경우 : reject (이더 EOA에 반환)
 - fallback 함수 있는 경우 : ether를 reject 하지 않게 만들어둔 경우에 전송 가능
 
-## 3. CA1 -> CA2
+## 3. CA1 -- (call) --> CA2
 - CA2 폴백 함수 구현에 따라 다를듯 (2와 비슷)
 
+## 4. CA1 -- (call) --> CA2 --> EOA (CA2 에서 이더 전송이 일어나는 경우)
+- CA2의 이더가 EOA로 전송된다.
 
+## 5. CA1 -- (delegate call) --> CA2 --> EOA (CA2 에서 이더 전송이 일어나는 경우)
+- CA1의 __context__ 에서 실행되므로, CA1의 이더라 EOA로 전송된다. 
 
 
 
