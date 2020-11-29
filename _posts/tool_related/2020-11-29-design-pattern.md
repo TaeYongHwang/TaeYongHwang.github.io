@@ -48,6 +48,7 @@ categories: Tool
 
 
 ## Strategy Pattern (전략 패턴)
+- 각 행동을 모듈화해서 독립적이고 상호 교체 가능하게 만듦
 - strategy, context, client 의 세 요소로 구성
 - __client에서 strategy 객체를생성해 context에 주입하는 패턴__
 - 자바에서는 단일 상속만 지원하기 때문에, 템플릿 메서드 패턴보다 전략 패턴을 많이 사용한다.
@@ -62,3 +63,7 @@ categories: Tool
 - Model : 백그라운드 동작 로직 처리
 - View : 사용자가 볼 결과 화면 출력
 - Controller : Model - View 를 연결해주는 역할 
+
+## State 패턴
+- 객체가 상태마다 다른 행위를 해야될 때, 상태 자체를 객체화하여 행위를 위임하는 패턴
+- 조건문으로 분류하는 것이 아닌 상태 객체를 변경해줌으로써 해야할 일을 지정할 수 있다. (조건문 대체 가능)
