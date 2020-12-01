@@ -17,7 +17,7 @@ categories: Ethereum
  함수와 2개의 이벤트를 말한다.
  ```solidity
     function totalSupply() public constant returns (uint);
-    function balanceOf(address tokenOwner) public constant returns (uint balance); 
+    function balanceOf(address tokenOwner) public constant returns (uint balance);
     function allowance(address tokenOwner, address spender) public constant returns (uint remaining);
     function transfer(address to, uint tokens) public returns (bool success);
     function approve(address spender, uint tokens) public returns (bool success);
@@ -29,7 +29,7 @@ categories: Ethereum
 위에 적어놓은 것들을 모두 지킨다면, ERC20 토큰이라고 한다.
 
 # Solidity와 Function Selector
- 솔리디티에서는 각 함수를 function selector를 이옹해 구분한다. 여기서 function selector란 함수의 keccak256 해시값의 앞 4byte만 사용한다. (빅 엔디안 방식일 때)   
+ 솔리디티에서는 각 함수를 function selector를 이옹해 구분한다. 여기서 function selector란 함수의 keccak256 해시값의 앞 4byte만 사용한다. (빅 엔디안 방식일 때)
  만약 function selector값이 충돌하는 경우에는 에러를 반환하고 어떠한 바이트코드도 생성하지 않는다. 즉, 컴파일러에서 function selector가 겹치지 않음을 보장해준다.
  ```solidity
 transfer(address,uint256) : '0xa9059cbb'
@@ -37,7 +37,7 @@ transfer(address,uint256) : '0xa9059cbb'
 Transfer(address,address,uint256) : '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef'
 ```
  위의 모양을 보면 알겠지만, function selector는 함수의 이름, 각 인자의 타입을 통해서 해싱하게 된다.
- 
+
 ## fallback 함수에 대해
 ```solidity
 function() payable { ... }
@@ -46,8 +46,8 @@ function() payable { ... }
 - 어떤 함수의 호출도 없이 컨트랙트가 이더를 수신한 경우 실행
 - fallback 함수가 정의되지 않은 경우, 이더를 받으면 예외가 발생하며 이더를 돌려준다.
 - 정의된 경우, CA의 이더량이 올라가게 된다. (CA에서도 토큰뿐만 아닌 이더도 전송이 가능하다.)
- 
- 
+
+
 # event 호출과 이더리움 로그 분석
  ```solidity
 emit x(uint indexed age, uint indexed height);
@@ -68,7 +68,7 @@ event Transfer(address indexed from, address indexed to, uint tokens);
 3. 특정 토큰에 대한 수신자 (to)가 topics[2]에 저장된다.
 4. 토큰에 대한 양 (tokens)이 data 영역에 저장된다.
 
-이 정보를 활용해 특정 트랜잭션에서 토큰에 대한 송수신 정보를 뽑아낼 수 있다. (보편적인 경우)   
+이 정보를 활용해 특정 트랜잭션에서 토큰에 대한 송수신 정보를 뽑아낼 수 있다. (보편적인 경우)
 
 하지만, ERC20 토큰으로 분류되어 있음에도 불구하고 해당 방식으로 파싱할 수 없는 경우들이 존재한다.
 ```solidity
@@ -83,7 +83,15 @@ __즉, 실질적으로 ERC20 규격을 만족하면서, 내부적으로 기대�
 
 
 
+ ```solidity
+transfer
 
+transfer(address,uint256)  '0xa9059cbb'
+
+Transfer(address,address,uint256)  '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef'
+
+transfer
+```
 
 
 
