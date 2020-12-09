@@ -12,8 +12,8 @@ Internal Transaction이라고 한다. On-chain 상에 기록되는 정보는 오
 그렇다면, Internal 트랜잭션 정보들은 어떻게 얻을 수 있을까?
 
 ## Internal 트랜잭션 특징
-- Normal Tx가 성공했다고 해서 모든 internal tx가 성공하는 것은 아니다. 
-- Internal Tx의 gas는 tx에 종속된다.
+- Normal Tx가 성공했다고 해서 모든 internal tx가 성공하는 것은 아니다. (특정 internal tx 실패 시, 해당 서브트리의 internal tx 모두 실패)
+- Internal Tx의 gas는 tx에 종속된다. 
 - on-chain 상에 기록되지 않기 때문에, geth, parity 등의 이더리움 클라이언트 API를 사용해야 한다.
 - Internal Tx를 통해 이더 전송, function call, contract creation 등이 가능하다. (주체가 EOA일 뿐이다)
 - Normal Tx에 종속돼서 일어난다. (parent hash가 존재)
@@ -26,7 +26,7 @@ Internal Transaction이라고 한다. On-chain 상에 기록되는 정보는 오
  위의 링크를 들어가보면, trace module이라고 적혀있는 것을 확인할 수 있다. 이 말 처럼, Internal 트랜잭션을 얻어오기 위해선 특정 블록, 특정 트랜잭션 단위로   
  해당 정보를 replay 시켜야 한다. 이더스캔을 써보면 __Internal Txns__ 필드를 볼 수 있는데, 이 칸 역시 이때까지의 모든 블록을 replay해서 얻은 정보를 가공해
  제공하는 것이라고 생각한다. 
-```solidity
+```javascript
   const res = await axios.post('parity rpc 호출 가능한 uri', {
     method: 'trace_block',
     params: ['0x...'],
@@ -101,6 +101,8 @@ Internal Transaction이라고 한다. On-chain 상에 기록되는 정보는 오
 
 ### 3. call
 - A 컨트랙트에서 B 컨트랙트 호출 시, B의 스토리지를 변경시키고, msg.sender는 컨트랙트 A가 된다.
+- 실제 이더 전송, 토큰 전송 등의 주체가 되는 콜타입
+
 ```json
 {
   action: {
@@ -127,6 +129,7 @@ Internal Transaction이라고 한다. On-chain 상에 기록되는 정보는 오
 
 ### 4. create
 - 새로운 컨트랙트를 생성한다.
+
 ```json
 {
   action: {
@@ -152,7 +155,10 @@ Internal Transaction이라고 한다. On-chain 상에 기록되는 정보는 오
 ```
 
 ### 5. suicide (self-destruct)
+- 배포된 컨트랙트에 존재하는 이더를 특정 주소로 보내고, 더 이상 사용하지 않는 컨트랙트라는 걸 명시
+
 > [self-destruct 관련 정보](https://ethereum.stackexchange.com/questions/315/why-are-selfdestructs-used-in-contract-programming)
+
 ```json
     {
         "action": {
