@@ -41,7 +41,7 @@ date: 2020-11-11
 
 ## 2. EOA -> CA
 - fallback 함수 없는 경우 : reject (이더 EOA에 반환)
-- fallback 함수 있는 경우 : ether를 reject 하지 않게 만들어둔 경우에 전송 가능
+- fallback 함수 있는 경우 : ether를 reject 하지 않게 만들어둔 경우(payable)에 전송 가능
 
 ## 3. CA1 -- (call) --> CA2
 - CA2 폴백 함수 구현에 따라 다를듯 (2와 비슷)
