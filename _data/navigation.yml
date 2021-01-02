@@ -15,3 +15,5 @@ main:
     url: /categories/project/
   - title: "Tool"
     url: /categories/tool/
+  - title: "Else"
+    url: /categories/else/
