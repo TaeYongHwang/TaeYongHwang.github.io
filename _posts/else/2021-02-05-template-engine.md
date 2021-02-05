@@ -1,6 +1,6 @@
 ---
 title: "템플릿 엔진 (Template Engine)"
-date: 2021-02-25
+date: 2021-02-05
 toc: true
 toc_sticky: true
 categories: Else
