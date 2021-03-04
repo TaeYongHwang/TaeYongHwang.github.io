@@ -1,0 +1,19 @@
+---
+title: "API SDK Webhook"
+date: 2021-03-04
+toc: true
+toc_sticky: true
+categories: Else
+---
+
+# API (Application Programming Interface)
+
+
+# SDK (Software Development Kit)
+
+# Webhook
+- 외부 시스템에서 특정 이벤트가 발생되면, 등록해놓은 특정 URL에 해당 정보를 알려주는 방법 (이벤트 핸들링을 위함)
+- API를 이용해 이벤트를 핸들링하기 위해서는 주기적으로 이벤트 발생 여부를 해당 시스템에 요청해야 한다. (리소스의 낭비)   
+  Webhook을 이용한다면, 외부 시스템에 URL을 등록해놓고 기다리면 특정 이벤트가 발생한 경우 해당 URL을 통해 Http POST 요청이 들어오게 된다.
+- 웹훅을 제공하는 시스템에선 이벤트 요청이 정상적으로 도착했는지에 대한 핸들링을 해줘야 한다. (서버 문제 등으로 요청이 사라진 경우 대비)
+- 웹훅을 받는 시스템에선 idempotent하게끔 웹훅 핸들링을 해줘야 한다. (서버 문제 등으로 동일한 요청이 N번 발생한 경우, 중복 방지를 위해)
