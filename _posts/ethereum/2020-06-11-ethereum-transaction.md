@@ -101,6 +101,10 @@ categories: Ethereum
 # 이더리움에서의 CPFP
 - 비트코인에서는 CPFP 방식으로 __stuck__ 상태의 트랜잭션을 confirm 시킬 수 있지만, 이더리움에선
 그냥 같은 nonce 값으로 더 높은 gas price를 줘서 같은 트랜잭션을 재전송 시키면 된다.
+  
+# [EIP - 155](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-155.md)
+- 이더리움 트랜잭션에 서명할 때의 명세 (chainid를 명시해줘야 함)
+- chainid를 명시하지 않고 서명한 트랜잭션을 브로드캐스트 하려는 경우에 EIP-155를 만족시키는 않는다는 오류 발생
 
 
 
