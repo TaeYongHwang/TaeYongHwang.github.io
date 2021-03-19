@@ -112,6 +112,7 @@ categories: Ethereum
 ## [EIP - 155](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-155.md)
 - 이더리움 트랜잭션에 서명할 때의 명세 (chainid를 명시해줘야 함)
 - chainid를 명시하지 않고 서명한 트랜잭션을 브로드캐스트 하려는 경우에 EIP-155를 만족시키는 않는다는 오류 발생]
+- 하나의 트랜잭션이 다른 블록체인 (롭스텐 테스트넷 등)에서 유효하지 않게 하기 위한 표준 (__Simple Replay Attack Protection__)  
 - nonce, gasPrice, gasLimit, to, value, data, chainId, 0, 0을 포함해 RLP 인코딩 해야 한다. 
 
 
