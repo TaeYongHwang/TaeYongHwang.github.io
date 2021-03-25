@@ -83,15 +83,4 @@ __즉, 실질적으로 ERC20 규격을 만족하면서, 내부적으로 기대�
 
 
 
- ```solidity
-transfer
-
-transfer(address,uint256)  '0xa9059cbb'
-
-Transfer(address,address,uint256)  '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef'
-
-transfer
-```
-
-
 
