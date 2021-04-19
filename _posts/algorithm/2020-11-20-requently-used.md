@@ -17,7 +17,9 @@ void combination(string src, string crs, int depth) {
 }
 ```
 
-# 문자열 분할
+# 문자열 관련
+
+## 문자열 분할 
 ```cpp
 // delimiter 기준 분할
 #include <string>
@@ -39,5 +41,16 @@ vector<string> split(string str, char delimiter) {
 }
 ```
 
+## 대소문자 변환
 
+```cpp
+#include <cctype>
+
+// 문자 넣을 시, 아스키코드 기반 변환해서 들어간다.
+// 다른 모든 문자는 그대로 반환
+int tolower(int c);
+int toupper(int c);
+
+
+```
 
