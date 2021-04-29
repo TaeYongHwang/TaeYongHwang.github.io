@@ -90,6 +90,9 @@ __Safety 특정이 강조된 알고리즘__ 으로, 장애 혹은 악의적인 �
 
 ### Domain ledger
 DID와 같이 사용자의 신원 인증과 관련된 데이터를 저장
+> __Schema__ : 신원 증명 양식 중 사용자 속성에 대한 항목을 정의한 데이터   
+> __Credential definition__ : issuer가 Schema가 포함된 Credential definition에 사용자 ID 속성값을 채운 뒤 추가적인 필드와 함께 사용자에게 신원증명을 발행한다.
+
 
 - NYM 트랜잭션
     - 사용자의 DID document 관련 정보와 사용자를 어떤 권한을 가진 그룹으로 분류하는지에 대한 정보가 담겨 있다.
