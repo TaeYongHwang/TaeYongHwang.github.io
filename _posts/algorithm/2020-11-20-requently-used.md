@@ -54,7 +54,7 @@ vector<string> split(string str, char delimiter) {
 }
 ```
 
-## 대소문자 변환
+## 문자 변환, 확인
 
 ```cpp
 #include <cctype>
@@ -63,6 +63,8 @@ vector<string> split(string str, char delimiter) {
 // 다른 모든 문자는 그대로 반환
 int tolower(int c);
 int toupper(int c);
+
+int isalpha (int c);
 
 ```
 
