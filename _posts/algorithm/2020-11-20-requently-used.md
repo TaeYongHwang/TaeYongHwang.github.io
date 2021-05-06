@@ -7,6 +7,7 @@ categories: Algorithm
 ---
 
 # 순열
+
 - nCk를 구할 수도 있는데, 이 경우 v에 1원소를 k개, 0원소를 n-k개 삽입해 구할 수 있다.
 ``` cpp
     vector<int> v;
@@ -67,5 +68,43 @@ int toupper(int c);
 int isalpha (int c);
 
 ```
+
+# 그래프
+
+## 플로이드-워셜 알고리즘
+- 모든 최단경로를 구하는 문제
+
+```cpp
+vector<vector<int>> board;
+
+
+int findAns(int n) {
+    vector<vector<int>> minFares = vector<vector<int>>(n, vector<int>(n,0));
+    
+    for(int i = 0 ; i < n ; i++) {
+        for(int j = 0 ; j < n ; j++) {
+            minFares[i][j] = board[i][j];
+        }
+    }
+    
+    
+    for(int k = 0 ; k < n ; k ++) {      
+        for(int i = 0 ; i < n ; i++) {
+            for(int j = 0 ; j < n ; j ++) {
+                if(minFares[i][k] + minFares[k][j] < minFares[i][j]) {
+                    minFares[i][j] = minFares[i][k] + minFares[k][j];
+                }
+            }          
+        }
+        
+    }
+}
+
+
+
+
+
+```
+
 
 
