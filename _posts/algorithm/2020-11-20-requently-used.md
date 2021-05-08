@@ -9,6 +9,8 @@ categories: Algorithm
 # 순열
 
 - nCk를 구할 수도 있는데, 이 경우 v에 1원소를 k개, 0원소를 n-k개 삽입해 구할 수 있다.
+
+
 ``` cpp
     vector<int> v;
 
