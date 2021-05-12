@@ -11,7 +11,7 @@ categories: Algorithm
 - __full binary tree__ 구조 사용
 - 변경 시마다 O(logN) 만큼 걸림
 
-> 부모 노드의 값은 양쪽 자식 노드의 합
+> 부모 노드의 값은 양쪽 자식 노드의 합   
 > 배열의 요소는 리프 노드에 존재
 
 
