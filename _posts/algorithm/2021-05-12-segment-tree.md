@@ -51,7 +51,6 @@ class SegTree {
     public:
         vector<long long> tree;
         int height;
-        int leafStart;
 
     // SegTree tree(a.size());
     SegTree(int n) {
