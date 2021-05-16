@@ -142,7 +142,8 @@ DID와 같이 사용자의 신원 인증과 관련된 데이터를 저장
         - 블록체인 노드의 장애 여부나 성능을 모니터링하는 그룹         
 
 ## Revocation registry
-신원 증명이 폐기됐는지 여부를 확인할 수 있는 __Accumulator, Witness, Tails file의 URL__ 등의 데이터가 저장되어 있다.
+- 신원 증명이 폐기됐는지 여부를 확인할 수 있는 __Accumulator, Witness, Tails file의 URL__ 등의 데이터가 저장되어 있다.
+- Revocation registry를 생성하기 위해선 타겟 credential definition 생성 시에 __support_revocation__ 설정을 __true__ 로 생성해줘야 한다.
 
 > __Tails file__ : issuer가 몇 개의 VC를 발행할지 미리 정한 뒤 발행할 수만큼의 VC의 인수가 저장된 Tails file을 생성
 
