@@ -141,7 +141,34 @@ DID와 같이 사용자의 신원 인증과 관련된 데이터를 저장
     - 201: Network Monitor
         - 블록체인 노드의 장애 여부나 성능을 모니터링하는 그룹         
 
-## indy-sdk 프로젝트
+## Revocation registry
+신원 증명이 폐기됐는지 여부를 확인할 수 있는 __Accumulator, Witness, Tails file의 URL__ 등의 데이터가 저장되어 있다.
+
+> __Tails file__ : issuer가 몇 개의 VC를 발행할지 미리 정한 뒤 발행할 수만큼의 VC의 인수가 저장된 Tails file을 생성
+
+> __Accumulator__ : 미리 생성된 Tails file의 인수들 중 VC 발행에 사용한 VC의 인수들을 이용한 연산의 결괏값으로, 블록체인에 저장된다.   
+> - 추후 검증인은 해당 값을 통해 VC의 폐기 여부를 검증할 수 있다.
+> - VC를 폐기하는 경우, 폐기할 VC에 대한 인수를 제외한 Accumulator를 다시 계산하여 블록체인에 업데이트한다.
+
+> __Witness__ : 발행한 VC의 인수를 제외한 나머지 인수들을 이용한 계산의 결괏값
+> - 사용자는 발행인의 저장소에 저장된 Tails file과 블록체인의 Revocation registry를 참고하여 자신이 제출하는 VC가 폐기되지 않았음을 증명할 수 있다.
+
+### 폐기 과정
+1. issuer에서 발행할 VC를 생성함과 동시에 Tails file에서 해당 VC의 인수를 이용해 Accumulator를 업데이트
+
+2. __REVOC_REG_ENTRY__ 트랜잭션을 블록체인에 저장함
+    - 해당 트랜잭션은 업데이트된 Accumulator와 Tails file의 어떤 인수를 사용하여 업데이트를 했는지를 명시
+
+3. 사용자에서 VC와 폐기 여부 검증에 사용할 수 있는 VC의 인수를 함께 전달   
+  
+
+
+
+
+
+
+
+# indy-sdk 프로젝트
 
 
 
