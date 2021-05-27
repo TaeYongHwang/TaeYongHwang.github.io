@@ -178,7 +178,7 @@ DID와 같이 사용자의 신원 인증과 관련된 데이터를 저장
 - 노드에 반영하기 위해선 트랜잭션을 작성해야됨 (NYM 등)   
 - 노드에 반영된 정보는 getNYumRequest 등으로 받아올 수 있지만, 노드에 등록 되지 않은 did를 이용해서도 값을 받아볼 수 있다.
  하지만 실제 트랜잭션을 작성하기 위해선 Endorser 이상만 가능하기 때문에 노드에 등록된 did를 이용해야 가능하다. (public - permissioned 라고 불리는 이유인듯)
-
+- __nonce__ 는 __unique connection request__ 를 추적하기 위해 생성된 랜덤 숫자이며 한 번만 사용되어야 한다. 
   
 - Schema sample
 ```json
