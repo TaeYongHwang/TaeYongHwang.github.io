@@ -161,6 +161,15 @@ DID와 같이 사용자의 신원 인증과 관련된 데이터를 저장
     - 해당 트랜잭션은 업데이트된 Accumulator와 Tails file의 어떤 인수를 사용하여 업데이트를 했는지를 명시
 
 3. 사용자에서 VC와 폐기 여부 검증에 사용할 수 있는 VC의 인수를 함께 전달   
+
+### revocation registry 관련 전체 플로우
+1. VC를 폐기 가능하게 __credential definition__ 을 작성 시 revocation registry 생성 과정이 필요
+2. revocation registry 생성하면 나오는 초기값을 이용해 __REVOC_REG_ENTRY__ 를 초기값으로 블록체인 업데이트 (동기화 위해)
+3. VC 생성 시에도 동일하게 변경값이 나오게 되는데 이를 __REVOC_REG_ENTRY__ 로 업데이트
+4. VC 폐기 시에도 동일하게 변경값이 나오게 되는데 이를 __REVOC_REG_ENTRY__ 로 업데이트
+    - indy의 경우에는 이 값을 __revocRegDelta__ 로 명명해서 사용 중
+
+
   
 
 
