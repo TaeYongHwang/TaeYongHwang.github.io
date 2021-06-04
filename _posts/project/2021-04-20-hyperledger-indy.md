@@ -146,6 +146,7 @@ DID와 같이 사용자의 신원 인증과 관련된 데이터를 저장
 - Revocation registry를 생성하기 위해선 타겟 credential definition 생성 시에 __support_revocation__ 설정을 __true__ 로 생성해줘야 한다.
 
 > __Tails file__ : issuer가 몇 개의 VC를 발행할지 미리 정한 뒤 발행할 수만큼의 VC의 인수가 저장된 Tails file을 생성
+>    - 해당 파일은 용량이 크기 때문에, 블록체인에 등록하는 것이 아닌 따로 관리해주어야 함
 
 > __Accumulator__ : 미리 생성된 Tails file의 인수들 중 VC 발행에 사용한 VC의 인수들을 이용한 연산의 결괏값으로, 블록체인에 저장된다.   
 > - 추후 검증인은 해당 값을 통해 VC의 폐기 여부를 검증할 수 있다.
@@ -199,6 +200,8 @@ DID와 같이 사용자의 신원 인증과 관련된 데이터를 저장
   "attrNames": ["age", "sex", "height", "name"]
 }
 ```
+
+- VC 폐기 이후에도 지갑에는 해당 VC가 존재하기 때문에, __proof request__ 시 폐기 정보를 검증하게끔 만들지 않는다면 폐기된 VC도 가져온다.
 
 
 
