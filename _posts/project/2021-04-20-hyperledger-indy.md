@@ -21,6 +21,7 @@ __하이퍼레저 인디는 ZKP VC/VP에 특화된 SSI 플랫폼__
     - DID, VC, VP 등 사용자가 직접 사용하는 상위 데이터 프로토콜을 개발하기 위한 프로젝트
     - aries-rfcs: DID, VC, VP 등 SSI 구성요소 관련 기술 사양 및 프로토콜 정의
     - aries-framework-go :ACCEPTED 상태가 된 aries-rfcs의 RFC 내용을 바탕으로 Go 언어로 구현된 SSI 프레임워크 개발
+    - 목표 : __어떠한 블록체인, 분산저장소를 사용하든지 상관없이 독립적으로 동작할 수 있는 클라이언트 간의 SSI 통신 표준과 프레임워크 개발__
 
 4. __indy-plenum__
     - indy-node의 합의 알고리즘, 원장 구조 등 개발
