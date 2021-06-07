@@ -172,7 +172,18 @@ DID와 같이 사용자의 신원 인증과 관련된 데이터를 저장
     - indy의 경우에는 이 값을 __revocRegDelta__ 로 명명해서 사용 중
 
 
-  
+
+## Proof of Concept Networks
+- BCovrin sandbox testnetwork
+- The Sovrin Foundation, operates two non-production networks: ( __permissioned__ )
+  - Builder Net: For active development of your solution.
+  - Staging Net: For proofs of concept, demos, and other non-production but stable use cases.
+
+## Genesis File
+- ledger pool에 있는 노드들의(전체 or 일부) IP, Port와 같은 __physical endpoint__ 정보들 담고 있다
+- 위의 노드들과 통신하는 데 필요한 암호화 자료들이 포함되어있다.
+
+
 
 
 
