@@ -44,9 +44,13 @@ A, B라는 __running agent__ 가 존재할때,
     - 새로 생긴 채널을 통해 메시지가 송수신되며, 비공개이며 안전하다.
 
 
+### [ACA-PY](https://github.com/hyperledger/aries-cloudagent-python)
+- aries cloud agent 중 하나 (framework 부분이라고 생각하면 될듯)
+- controller 부분은 어떤 언어로 작성해도 무방, 모바일엔 적합하지 않다.
 
 
 
 
 > Reference.   
 > [Becoming an Aries Developer](https://www.edx.org/course/becoming-a-hyperledger-aries-developer)
+> [ACA-PY](https://github.com/hyperledger/aries-cloudagent-python)
