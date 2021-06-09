@@ -17,7 +17,12 @@ __Hyperledger Aries is a toolkit for building solutions focused on creating, tra
 - __agent__ : 다른 entity와 상호작용하는 소프트웨어를 의미 
     - 대부분의 agent는 DID, key, VC를 안전하게 관리하기 위한 secure storage 존재. 
     - Each interacts with other agents using secure, peer-to-peer messaging protocols.
+
+- Aries Agent는 __DIDComm__ 이라 명명된 메시지 메커니즘을 활용해 서로 통신한다.
+    - DID를 활용해 agent 사이에 __secure, asynchronous, end-to-end encrypted message__ 전송을 가능하게 해준다.
+    - peer DID 방식을 사용하는 경우, DID가 레저에 저장하지 않고 통신 당시자 간에 비공개로만 공유된다.
   
+
 ## Aries Agent Architecture
 __framework__ , __controller__ 로 구성
 
@@ -48,6 +53,9 @@ A, B라는 __running agent__ 가 존재할때,
 - aries cloud agent 중 하나 (framework 부분이라고 생각하면 될듯)
 - controller 부분은 어떤 언어로 작성해도 무방, 모바일엔 적합하지 않다.
 
+- __두 개의 operation mode 가 존재__ (보안적인 이유로 분리)
+    1. __provision__ : agent 당 1회, 지갑, 필요한 ledger object 설정
+    2. __start__ : normal operation, 필요한 모든 정보가 지갑, 레저 안에 있다고 가정하고 실행
 
 
 
