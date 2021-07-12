@@ -18,7 +18,7 @@ docker build -t acapy -f ./docker/Dockerfile.run .
 ```shell
 docker run -it --rm acapy --help #도움말
 
-
+# aries-cloudagent-python 의 루트 디렉토리에서 실행
 PORTS="8000:8000 8001:8001" \
 scripts/run_docker start \
 --storage-type indy \
