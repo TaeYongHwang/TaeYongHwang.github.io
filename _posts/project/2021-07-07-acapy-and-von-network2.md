@@ -19,7 +19,8 @@ docker build -t acapy -f ./docker/Dockerfile.run .
 docker run -it --rm acapy --help #도움말
 
 
-docker run -it --rm acapy start \
+PORTS="8000:8000 8001:8001" \
+scripts/run_docker start \
 --storage-type indy \
 --inbound-transport http 0.0.0.0 8000 \
 --outbound-transport http \
