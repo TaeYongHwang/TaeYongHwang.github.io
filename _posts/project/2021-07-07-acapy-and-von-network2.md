@@ -6,6 +6,25 @@ toc_sticky: true
 categories: Project
 ---
 
+# Tails Server 연결
+## 실행
+- https://github.com/bcgov/indy-tails-server
+```shell
+git clone https://github.com/bcgov/indy-tails-server.git
+cd indy-tails-server/
+./docker/manage start
+
+./docker/manage stop
+```
+- 디폴트는 6543 포트를 통해 접근 가능
+
+## ngrok 실행
+- ACA-PY 연결 시, tails 서버에 public하게 접근 가능한 URL이 필요 (VC 폐기 처리를 위해)
+- https://github.com/hyperledger/aries-cloudagent-python/blob/main/docs/GettingStartedAriesDev/CredentialRevocation.md
+```shell
+ngrok http 6543
+```
+
 # ACA-PY 연동
 ## 설치
 ```shell
@@ -35,7 +54,8 @@ scripts/run_docker start \
 --auto-provision \
 --endpoint http://localhost:8000 \
 --admin-insecure-mode \
---admin 0.0.0.0 8001
+--admin 0.0.0.0 8001 \
+--tails-server-base-url <위 과정을 통해 켜둔 ngrok url> \
 ```
 
 # Von-Network 연동
