@@ -19,6 +19,7 @@ docker build -t acapy -f ./docker/Dockerfile.run .
 docker run -it --rm acapy --help #도움말
 
 # aries-cloudagent-python 의 루트 디렉토리에서 실행
+# localhost:8001을 통해 제공하는 Swagger UI에 접속 가능
 PORTS="8000:8000 8001:8001" \
 scripts/run_docker start \
 --storage-type indy \
