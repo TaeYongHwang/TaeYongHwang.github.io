@@ -10,6 +10,7 @@ categories: Project
 # Tails Server 연결
 ## 실행
 - https://github.com/bcgov/indy-tails-server
+
 ```shell
 git clone https://github.com/bcgov/indy-tails-server.git
 cd indy-tails-server/
