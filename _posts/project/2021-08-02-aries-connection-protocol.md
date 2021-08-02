@@ -21,7 +21,8 @@ categories: Project
 4. __inviter__ : Accept Request
 
 5. 서로에게 메시지를 하나씩 송수신 하는 경우 수신하는 쪽의 connection의 status가 active로 변경됨.
-    
+ 
+위의 과정을 모두 마친 후에 Credential을 해당 connection channel을 통해 송수신할 수 있게 된다.
 
 > Reference.   
 > [aries-rfcs 0160](https://github.com/hyperledger/aries-rfcs/tree/9b0aaa39df7e8bd434126c4b33c097aae78d65bf/features/0160-connection-protocol)
