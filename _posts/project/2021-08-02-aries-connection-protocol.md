@@ -53,7 +53,7 @@ __두 에이전트 사이에 통신 가능한 채널을 생성해 안전하게 �
 위의 두 옵션을 활성화 함으로써, 3개의 플로우를 자동화할 수 있다.
 1. Holder에서 __Credential Offer__ 를 받는 행위
 2. Holder에서 이에 맞게 __Credential Request__ 를 전송하는 행위
-3. Issuer에서 __Credential Message__를 issue하는 행위   
+3. Issuer에서 __Credential Message__ 를 issue하는 행위   
 
 이는 각 에이전트에서 자동화해야 하는 옵숀이기 때문에, __탈중앙화__ 를 고려했을 때에는 모든 플로우에 대해 웹훅으로 핸들링하는 것이 좋을 것 같다.
 
