@@ -59,7 +59,7 @@ __두 에이전트 사이에 통신 가능한 채널을 생성해 안전하게 �
 
 ## 실제 플로우
 ![img.png](../../images/send-credential.png)
-1. Issuer에서 위의 __Endpoint__ 를 이용해 요청을 하면 정상적으로 확인 할 수 있다.
+1. Issuer에서 위의 __Endpoint__ 를 이용해 요청을 하면 Credential을 Holder에게 전송할 수 있다. 
     - 하지만 아직 완전히 Holder의 지갑에 저장된 상태는 아니며, credential exchange record에만 기록되어 있는 상태이다.
   
 ![img.png](../../images/ex-records.png)
