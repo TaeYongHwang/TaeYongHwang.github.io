@@ -68,16 +68,29 @@ __두 에이전트 사이에 통신 가능한 채널을 생성해 안전하게 �
 ![img.png](../../images/store-cred.png)
 3. 해당 __Endpoint__ 를 통해 현재 지갑 스토리지에 Credential을 저장하면 전체 플로우가 종료된다.
     - `/credentials` endpoint를 통해 저장된 값을 확인할 수 있게 된다.
+    - `--auto-store-credential`을 통해 해당 기능 역시 자동화가 가능하다.
   
-   
 
+# Requesting / Presenting a Proof
 
+## prerequisite
+![img_1.png](../../present-proof/img_1.png)
+__Issue Credential__ 과 동일하게 웹훅을 구현해 작업해야 하는 부분이 있다. 이를 최소화하기 위해 두 개의 옵션을 추가로 전달해야 한다. 
 
+- `--auto-respond-presentation-request`
+    - __Verifier__ 가 __Holder__ 에 VP 요청을 전송했을 때, 조건에 맞는 __claim__ 들을 Credential에서 찾아서 VP를 전송한다.
+    - __Holder__ 의 Agent에서 활성화
+  
+- `--auto-verify-presentation` 
+    - __Holder__ 에서 전송한 VP를 __Verifier__ 에서 받자마자 자동으로 검증하게 한다.
+    - __Verifier__ 의 Agent에서 활성화
+  
+## 실제 플로우
+![img.png](../../images/send-vp-request.png)
 
+- 위의 엔드포인트에 VP request를 전송하면, 나머지 플로우는 자동으로 진행되게 된다.
 
-
-
-
+  
 
 
 
@@ -89,7 +102,9 @@ __두 에이전트 사이에 통신 가능한 채널을 생성해 안전하게 �
 
 
 > Reference.   
-> [aries-rfcs 0160](https://github.com/hyperledger/aries-rfcs/tree/9b0aaa39df7e8bd434126c4b33c097aae78d65bf/features/0160-connection-protocol)   
-> [aries-rfcs 0095](https://github.com/hyperledger/aries-rfcs/tree/527849ec3aa2a8fd47a7bb6c57f918ff8bcb5e8c/features/0095-basic-message)   
-> [유용한 데모](https://github.com/hyperledger/aries-cloudagent-python/blob/main/demo/AriesOpenAPIDemo.md#start-the-faber-agent-1)   
+> [aries-rfcs 0160 (connection-protocol)](https://github.com/hyperledger/aries-rfcs/tree/9b0aaa39df7e8bd434126c4b33c097aae78d65bf/features/0160-connection-protocol)   
+> [aries-rfcs 0095 (basic-message)](https://github.com/hyperledger/aries-rfcs/tree/527849ec3aa2a8fd47a7bb6c57f918ff8bcb5e8c/features/0095-basic-message)    
+> [aries-rfcs 0036 (issue-credential)](https://github.com/hyperledger/aries-rfcs/tree/bb42a6c35e0d5543718fb36dd099551ab192f7b0/features/0036-issue-credential)   
+> [aries-rfcs 0037 (present-proof)](https://github.com/hyperledger/aries-rfcs/tree/4fae574c03f9f1013db30bf2c0c676b1122f7149/features/0037-present-proof)    
+> [유용한 데모](https://github.com/hyperledger/aries-cloudagent-python/blob/main/demo/AriesOpenAPIDemo.md#start-the-faber-agent-1)       
 > https://github.com/hyperledger/aries-cloudagent-python/blob/main/AdminAPI.md   
