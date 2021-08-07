@@ -50,14 +50,13 @@ __두 에이전트 사이에 통신 가능한 채널을 생성해 안전하게 �
 이를 어느정도 최소화하기 위해서, ACAPY 실행 시, 두개의 옵션을 추가로 전달한 후 작업할 예정이다.
 
 - `--auto-respond-credential-offer`
+    - __Potential Holder__ 에서 credential offer를 받으면 자동으로 __Issuer__ 에 credential request를 전송한다.
+    - __Holder__ 의 Agent에서 활성화
 - `--auto-respond-credential-request`
+    - __Issuer__ 에서 __Potential Holder__ 로부터 받은 credential request에 VC를 자동으로 생성해 전송한다.
+    - __Issuer__ 의 Agent에서 활성화
 
-위의 두 옵션을 활성화 함으로써, 3개의 플로우를 자동화할 수 있다.
-1. Holder에서 __Credential Offer__ 를 받는 행위
-2. Holder에서 이에 맞게 __Credential Request__ 를 전송하는 행위
-3. Issuer에서 __Credential Message__ 를 issue하는 행위   
-
-이는 각 에이전트에서 자동화해야 하는 옵션이기 때문에, __탈중앙화__ 를 고려했을 때에는 모든 플로우에 대해 웹훅으로 핸들링하는 것이 좋을 것 같다.
+__정밀한 조정에 대해 고려했을 때에는 모든 플로우에 대해 웹훅으로 핸들링하는 것이 좋을 것 같다.__
 
 ## 실제 플로우
 ![img.png](../../images/send-credential.png)
