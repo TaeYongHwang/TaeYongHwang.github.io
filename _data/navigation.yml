@@ -15,5 +15,7 @@ main:
     url: /categories/did/
   - title: "Tool"
     url: /categories/tool/
+  - title: "Spring"
+    url: /categories/spring/
   - title: "Else"
     url: /categories/else/
