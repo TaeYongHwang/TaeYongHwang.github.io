@@ -1,7 +1,7 @@
 # main links
 # 상단 메뉴바를 만드는 곳
 main:
-  - title: "블로그 방문하기"
+  - title: "Recent posts"
     url: https://taeyonghwang.github.io/
   - title: "Categories"
     url: /categories/
