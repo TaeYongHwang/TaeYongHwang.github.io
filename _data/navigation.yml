@@ -11,8 +11,8 @@ main:
     url: /categories/bitcoin/
   - title: "Algorithm"
     url: /categories/algorithm/
-  - title: "Project"
-    url: /categories/project/
+  - title: "DID"
+    url: /categories/did/
   - title: "Tool"
     url: /categories/tool/
   - title: "Else"

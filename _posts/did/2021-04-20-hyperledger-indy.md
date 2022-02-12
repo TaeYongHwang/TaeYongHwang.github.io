@@ -3,7 +3,7 @@ title: "Hyperledger Indy"
 date: 2021-04-02
 toc: true
 toc_sticky: true
-categories: Project
+categories: DID
 ---
 
 __하이퍼레저 인디는 ZKP VC/VP에 특화된 SSI 플랫폼__   

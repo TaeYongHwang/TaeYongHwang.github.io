@@ -3,7 +3,7 @@ title: "Hyperledger Aries"
 date: 2021-06-06
 toc: true
 toc_sticky: true
-categories: Project
+categories: DID
 ---
 
 __Hyperledger Aries is a toolkit for building solutions focused on creating, transmitting, storing and using verifiable credentials__

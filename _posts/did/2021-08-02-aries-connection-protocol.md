@@ -3,7 +3,7 @@ title: "Hyperledger Aries ACAPY Happy Path"
 date: 2021-08-02
 toc: true
 toc_sticky: true
-categories: Project
+categories: DID
 ---
 
 이해를 위해선 ACAPY의 Swagger UI가 필요합니다.   
