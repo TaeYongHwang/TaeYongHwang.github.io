@@ -35,7 +35,7 @@ categories: Else
  모킹해야 한다는 것이다.      
  
  간단하게 시나리오를 하나 생각해보자. **axios** 라는 라이브러리를 사용하는데, 우리가 mocking 할 메서드가 axios.Axios 클래스의 get 메서드라고 해보자
- ```javascript
+ ```typescript
  // axios/index.d.ts 파일
  export class Axios {
   constructor(config?: AxiosRequestConfig);
@@ -49,7 +49,7 @@ categories: Else
  3. Promise를 반환하므로, 관련 메서드를 적용하는 게 좋아보인다.   
  
  아래는 이를 적용한 테스트 코드이다.
- ```javascript
+ ```typescript
  import axios from "axios";
 jest.mock("axios"); // axios mock 지정
 
