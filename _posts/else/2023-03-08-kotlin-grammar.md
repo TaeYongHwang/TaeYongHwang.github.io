@@ -184,11 +184,56 @@ categories: Else
     ``` 
 - 검사 예외, 비검사 예외를 구분하지 않는다. 
 
+## 클래스
+- default는 public이며 internal, private으로 설정 가능
 
 
+### 주생성자
+```kotlin
+//클래스 헤더의 파라미터 목록을 주생성자 선언이라고 부름
+class Person(firstName: String, familyName: String) {
+  val fullName = "$firstName $familyName"
+  
+  init { //초기화 블록
+    println("Created new Person instance: $fullName")
+  }
+}
 
 
+// 본문을 생략할 수도 있다.
+class Person(val firstName: String, val familyName: String = "")
+```
+- 주생성자 실행 순서
+    - 프로퍼티 초기화와 초기화 블록이 등장하는 순서대로 구성
+    - 초기화(init) 블록 존재
+        - 주생성자가 호출될 때마다 실행된다.
+        - 여러 개의 init 블록 존재 가능
+        - return문은 불가
+- 주생성자 파라미터를 프로퍼티 초기화나 init 블록 밖에서 사용할 수 없다.
+- 생성자 파라미터 앞에 `val`, `var` 키워드를 덧붙이면, 자동으로 해당 생성자 파라미터로 초기화되는 프로퍼티를 정의한다.
 
+### 부생성자
+- constructor 키워드 사용
+```kotlin
+class Person {
+  val firstName: String
+  val familyName: String
+
+  
+  constructor(fullName: String) {
+    val names = fullName.split(" ")
+    if (names.size != 2) {
+      throw IllegalArgumentException("Invalid name: $fullName")
+    }
+    firstName = names[0]
+    familyName = names[1]
+  }
+
+  constructor(firstName: String, familyName: String): 
+    this("$firstName $familyName") //생성자 위임호출
+}
+```
+- 클래스에 주생성자를 선언하지 않은 경우, 모든 부생성자는 자신의 본문을 실행하기 전에 프로퍼티 초기화와 init 블록을 실행
     
 
 
