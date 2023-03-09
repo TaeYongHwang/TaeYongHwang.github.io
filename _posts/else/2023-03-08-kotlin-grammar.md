@@ -147,6 +147,7 @@ categories: Else
    - 다른 언어들과 동일
 - for
     - 특정 컨테이너를 for 루프에 사용하기 위해서는 컨테이너가 iterator() 함수를 지원하기만 하면 된다. 
+    
     ```kotlin
     val a = IntArray(10) {it*it}
     var sum = 0
@@ -162,7 +163,8 @@ categories: Else
     for(i in a.indices step 2) { //0, 2, 4, ...
         ...
     }
-    ```
+    ``` 
+
 - tail recursive(꼬리 재귀 함수)에 대한 최적화된 컴파일    
     - 함수에 `tailrec` 키워드를 붙이면 된다.
         - 컴파일러가 재귀 함수를 비재귀적인 코드로 자동 변환해준다.
