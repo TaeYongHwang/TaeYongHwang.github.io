@@ -253,10 +253,10 @@ class Person24(val firstName: String, val familyName: String) {
 - 내포된 클래스에 `inner`를 붙이면 외부 클래스의 현재 인스턴스에 접근할 수 있다.
     - java에서는 static을 붙여야 정적 클래스가 되지만, kotlin에서는 기본이 정적 클래스이며,
     - 외부 클래스와 연결되기를 원하는 경우 `inner`를 붙여야 한다. (java에서는 안 붙이는 것과 동일)
-- `inner`를 붙이지 않는다면, 바깥쪽 클래스는 nest class의 비공개 멤버에 접근할 수 없다.
+- `inner`를 붙이지 않는다면, 바깥쪽 클래스는 nest class의 비공개 멤버에 접근할 수 없다.   
 
 
- ## Null
+## Null
  - 코틀린 타입 시스템을 null 허용/불허 참조 타입을 확실히 구분해준다.
     - 기본적으로 not null 타입.
     - NPE를 컴파일 시점으로 앞당김
