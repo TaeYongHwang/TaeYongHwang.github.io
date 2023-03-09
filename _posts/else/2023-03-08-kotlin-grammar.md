@@ -146,7 +146,7 @@ categories: Else
 - while, do-while
    - 다른 언어들과 동일
 - for
-    - 특정 컨테이너를 for 루프에 사용하기 위해서는 컨테이너가 iterator() 함수를 지원하기만 하면 된다.
+    - 특정 컨테이너를 for 루프에 사용하기 위해서는 컨테이너가 iterator() 함수를 지원하기만 하면 된다. 
     ```kotlin
     val a = IntArray(10) {it*it}
     var sum = 0
