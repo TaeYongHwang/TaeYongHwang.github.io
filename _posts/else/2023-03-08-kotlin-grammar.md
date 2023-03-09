@@ -122,6 +122,56 @@ categories: Else
         'a' in "Hello!" // false
         ```
 
+- when
+    ```kotlin
+    fun hexDigit(n: Int): Char {
+        when {
+            n in 0..9 -> return '0' + n
+            n in 10..15 -> return 'A' + n - 10
+            else -> return '?'
+        }
+
+        when (n) { //n에 대해서만 수행
+            in 0 until 9 -> n
+            in 10 until 12 -> n +2
+            else -> n+1
+        }
+    }
+    ``` 
+    - 다른 언어의 switch문 같은 느낌
+        - fall-through가 없기 떄문에, break를 사용해서 탈출하는 게 아님
+    - if문처럼 식으로 사용 가능
+
+# 루프
+- while, do-while
+   - 다른 언어들과 동일
+- for
+    - 특정 컨테이너를 for 루프에 사용하기 위해서는 컨테이너가 iterator() 함수를 지원하기만 하면 된다.
+    ```kotlin
+    val a = IntArray(10) {it*it}
+    var sum = 0
+    
+    for(x in a) {
+        sum += x
+    }
+
+    for(i in 0..a.lastIndex) { //0, 1, 2, ...
+        ...      
+    }
+
+    for(i in a.indices step 2) { //0, 2, 4, ...
+        ...
+    }
+    ```
+- tail recursive(꼬리 재귀 함수)에 대한 최저고하 컴파일    
+    - 함수에 `tailrec` 키워드를 붙이면 된다.
+        - 컴파일러가 재귀 함수를 비재귀적인 코드로 자동 변환해준다.
+        - 이런 변환을 적용하기 위해서, 함수가 재귀 호출 다음에 아무 동작도 수행하면 안 된다.
+
+# 예외 처리
+
+
+
 
 
 
