@@ -186,6 +186,13 @@ categories: Else
 
 ## 클래스
 - default는 public이며 internal, private으로 설정 가능
+- 멤버 가시성
+    - public (default)
+    - internal
+        - 멤버를 멤버가 속한 클래스가 포함된 컴파일 모듈 내부에서만 볼 수 있다.
+    - protected
+        - 멤버가 속한 클래스와 하위 클래스 안에서
+    - private
 
 
 ### 주생성자
@@ -235,10 +242,31 @@ class Person {
 ```
 - 클래스에 주생성자를 선언하지 않은 경우, 모든 부생성자는 자신의 본문을 실행하기 전에 프로퍼티 초기화와 init 블록을 실행
     
+### Nested class
+```kotlin
+class Person24(val firstName: String, val familyName: String) {
+  inner class Possession(val description: String) {
+    fun getOwner() = this@Person24 //외부 클래스의 인스턴스를 가리켜야 할 때
+  }
+}
+```
+- 내포된 클래스에 `inner`를 붙이면 외부 클래스의 현재 인스턴스에 접근할 수 있다.
+    - java에서는 static을 붙여야 정적 클래스가 되지만, kotlin에서는 기본이 정적 클래스이며,
+    - 외부 클래스와 연결되기를 원하는 경우 `inner`를 붙여야 한다. (java에서는 안 붙이는 것과 동일)
+- `inner`를 붙이지 않는다면, 바깥쪽 클래스는 nest class의 비공개 멤버에 접근할 수 없다.
 
 
-
- 
+ ## Null
+ - 코틀린 타입 시스템을 null 허용/불허 참조 타입을 확실히 구분해준다.
+    - 기본적으로 not null 타입.
+    - NPE를 컴파일 시점으로 앞당김
+- Null을 허용하기 위해서는 타입 뒤에 물음표(?)를 붙여야 함
+    - 런타임에는 null과 not null을 구분하지 않기에 어떤 부가 비용도 들지 않는다.
+- `x == null` 등을 통해 null 체크 가능 (smart cast)
+    - `!!(not-null assertion)` 사용도 가능하지만, 이는 KotlinNPE를 발생시킬 수도 있다.
+    - `?.` 를 통해 null인 경우는 null을 반환하고, not null인 경우만 작업 수행일 시킬 수도 있다.
+    - `?: ` 를 통해 null을 대신할 default 값을 지정할 수 있다.
+        - `name ?: return "Unknown"` 같이 제어 흐름을 깨는 코드를 넣어줄 수도 있다. 
  
  
  
