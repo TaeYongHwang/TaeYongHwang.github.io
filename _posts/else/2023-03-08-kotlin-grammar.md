@@ -171,6 +171,17 @@ categories: Else
         - 이런 변환을 적용하기 위해서, 함수가 재귀 호출 다음에 아무 동작도 수행하면 안 된다.
 
 # 예외 처리
+- 기본적으로 자바와 같다
+    - `new` 키워드가 없기 때문에, `NumberFormatException("...")`와 같이 호출한다.
+- try문도 식으로 간주된다. (해당 식의 값은 try, catch블록의 값임)
+    ```kotlin
+    fun readInt(default: Int) = try {
+        readLine()!!.toInt()
+    } catch (e: Exception) {
+        default
+    }
+    ``` 
+- 검사 예외, 비검사 예외를 구분하지 않는다. 
 
 
 
