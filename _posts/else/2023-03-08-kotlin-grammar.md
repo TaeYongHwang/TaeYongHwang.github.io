@@ -285,7 +285,7 @@ class Person24(val firstName: String, val familyName: String) {
 
         val text2 = File("data.txt").readText() //프로그램이 시작될 때 바로 파일을 읽는다.
 
-        val text3 by lazy { //처음 읽을 때까지 계산을 미뤄둠.
+        val text3 by lazy { //처음 읽을 때까지 계산을 미뤄둠, lazy 프로퍼티는 thread-safe
           File("data.txt").readText()
         }
     }
@@ -338,7 +338,55 @@ class Person24(val firstName: String, val familyName: String) {
     }
     ``` 
 
-    
+## 객체
+- 싱글톤
+    - class 대신 ojbect 키워드 사용
+
+    ```kotlin
+    // object 키워드는 클래스를 정의하는 동시에 클래스의 인스턴스를 정의하는 것(타입임과 동시에 값임)
+    // thread-safe 하다
+    object Application {
+        ...
+    }
+    ```
+
+- 동반 객체 (companion object)
+    - 동반 객체가 들어있는 외부 클래스의 이름을 통해 접근할 수 있게 된다.    
+
+    ```kotlin
+    class Application3 private constructor(val name: String) {
+        companion object Factory { // 이름 생략 가능, compainon object { ... } 형식으로
+            fun create(args: Array<String>): Application3? {
+              val name = args.firstOrNull() ?: return null
+              return Application3(name)
+            }
+        }
+    }
+
+    fun main28(args: Array<String>) {
+      //companion을 붙이지 않으면, Application3.Factory.create(args) 로 접근해야 함  
+      val app = Application3.create(args) ?: return
+      println("Application started: ${app.name}")
+    }
+    ```
+
+- 객체 식
+    - 자바 익명 클래스처럼 사용 가능    
+
+    ```kotlin
+    fun main29() {
+      fun midPoint(xRange: IntRange, yRange: IntRange) = object {
+        val x = (xRange.first + xRange.last)/2
+        val y = (yRange.first + yRange.last)/2
+      }
+  
+      val midPoint = midPoint(1..5, 2..6)
+  
+      println("${midPoint.x}, ${midPoint.y}") // (3, 4)
+    }
+
+    ```
+
 
  
  
