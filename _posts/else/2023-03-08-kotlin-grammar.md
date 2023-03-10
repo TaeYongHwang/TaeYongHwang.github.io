@@ -388,7 +388,30 @@ class Person24(val firstName: String, val familyName: String) {
     ```
 
 
- 
+# 함수형 프로그래밍
+
+## 고차 함수
+
+``` kotlin
+val squares = IntArray(5) { n -> n*n } //0, 1, 4, 9, 16 
+
+// op는 함수를 인자로 받을 수 있다.
+fun aggregate(numbers: IntArray, op: (Int, Int) -> Int): Int {
+  var result = numbers.firstOrNull()
+    ?: throw IllegalArgumentException("Empty array")
+    
+  for (i in 1..numbers.lastIndex) result = op(result, numbers[i])
+  
+  return result
+}
+
+fun sum(numbers: IntArray) =
+  aggregate(numbers, { result, op -> result + op }) //함수를 인자로 넘겨준다.
+  
+fun max(numbers: IntArray) =
+  aggregate(numbers, { result, op -> if (op > result) op else result })
+
+```
  
 
  
