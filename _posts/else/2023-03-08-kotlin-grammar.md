@@ -274,6 +274,7 @@ class Person24(val firstName: String, val familyName: String) {
 - 늦은 초기화
     - `lateinit` 키워드 사용
         - 해당 키워드가 붙은 프로퍼티는 값을 읽으려고 시도할 때 프로그램이 프로퍼티가 초기화됐는지 검사해서, 초기화되지 않은 경우에 `UninitializedPropertyAccessException`을 던진다.
+    
     ```kotlin
     class Content2 {
         lateinit var text: String //lateinit은 암시적인 !! 연산자와 비슷한 역할
@@ -281,10 +282,17 @@ class Person24(val firstName: String, val familyName: String) {
         fun loadFile(file: File) {
             text = file.readText()
         }
+
+        val text2 = File("data.txt").readText() //프로그램이 시작될 때 바로 파일을 읽는다.
+
+        val text3 by lazy { //처음 읽을 때까지 계산을 미뤄둠.
+          File("data.txt").readText()
+        }
     }
     ```
 - 접근자
     - get,set 둘 다 field 키워드를 통해 뒷받침하는 필드를 사용하지 않는 경우에만 계산하고, 그렇지 않는 경우는 뒷받침하는 필드가 생성된다.
+    
     ```kotlin
     class Person26(val firstName: String, val familyName: String) {
         //fullName, fullName2는 프로퍼티를 읽을 때마다 다시 계산된다. 
@@ -329,7 +337,9 @@ class Person24(val firstName: String, val familyName: String) {
           }	
     }
     ``` 
+
     
+
  
  
 
