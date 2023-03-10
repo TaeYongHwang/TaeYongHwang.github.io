@@ -269,8 +269,67 @@ class Person24(val firstName: String, val familyName: String) {
         - `name ?: return "Unknown"` 같이 제어 흐름을 깨는 코드를 넣어줄 수도 있다. 
  
  
- 
+## 프로퍼티
+- 코틀린 프로퍼티는 일반 변수를 넘어서, 프로퍼티 값을 읽거나 쓰는 법을 제어할 수 있는 훨씬 더 다양한 기능 제공
+- 늦은 초기화
+    - `lateinit` 키워드 사용
+        - 해당 키워드가 붙은 프로퍼티는 값을 읽으려고 시도할 때 프로그램이 프로퍼티가 초기화됐는지 검사해서, 초기화되지 않은 경우에 `UninitializedPropertyAccessException`을 던진다.
+    ```kotlin
+    class Content2 {
+        lateinit var text: String //lateinit은 암시적인 !! 연산자와 비슷한 역할
+  
+        fun loadFile(file: File) {
+            text = file.readText()
+        }
+    }
+    ```
+- 접근자
+    - get,set 둘 다 field 키워드를 통해 뒷받침하는 필드를 사용하지 않는 경우에만 계산하고, 그렇지 않는 경우는 뒷받침하는 필드가 생성된다.
+    ```kotlin
+    class Person26(val firstName: String, val familyName: String) {
+        //fullName, fullName2는 프로퍼티를 읽을 때마다 다시 계산된다. 
+        //이는 뒷받침하는 필드(backing field)가 없기 때문이다.
+        val fullName: String
+          get(): String {
+            return "$firstName $familyName"
+          }
 
+        val fullName2
+          get() = "$firstName $familyName"
+
+
+        // fullName3에 대해 뒷받침하는 필드가 생기지 않는다.
+        var fullName3: String
+          get(): String = "$firstName $familyName"
+          set(value) {
+            val names = value.split(" ")
+            firstName = names[0]
+            familyName = names[1]
+          }
+
+    }
+
+
+    class Person28(val firstName: String, val familyName: String, age: Int) {
+        val age: Int = age
+          get(): Int {
+            println("Accessing age")
+            return field //뒷받침하는 필드에 접근하는 경우에는 field 키워드를 사용할 수 있다.
+        }
+    }
+
+    class Person31(name: String) {
+        var lastChanged: Date? = null
+          private set // Person 클래스 밖에서는 변경할 수 없다, 일반적인 접근자면 키워드만으로도 가능
+  
+        var name: String = name
+          set(value) {
+            lastChanged = Date()
+            field = value
+          }	
+    }
+    ``` 
+    
  
  
 
