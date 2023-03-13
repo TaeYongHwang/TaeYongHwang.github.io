@@ -413,6 +413,172 @@ fun max(numbers: IntArray) =
 
 ```
  
+## 람다
 
+```kotlin 
+fun check2(s: String, condition: (Int, Char) -> Boolean): Boolean {
+  for (i in s.indices) {
+    if (!condition(i, s[i])) return false
+  }
+  return true
+}
+
+fun main11() {
+  // 사용하지 않는 람다 파라미터를 '_' 로 지정할 수 있다.  
+  println(check2("Hello") { _, c ->c.isLetter() })              // true
+  println(check2("Hello") { i, c ->i == 0 || c.isLowerCase() }) // true
+}
+```
+
+## 익명 함수
+- fun 키워드 다음에 바로 파라미터 목록이 온다.
+
+```kotlin
+fun sum4(numbers: IntArray) =
+  aggregate(numbers, fun(result, op) = result + op)
+```
  
- 
+## 호출 가능 참조
+- callable reference
+- `::` 사용
+- 다른 패키지에 들어 있는 함수의 callable reference를 만들려면 먼저 함수를 import해야 한다.
+    - 함수 이름을 간단한 형태로만 써야 하기 때문에
+
+```kotlin
+fun check3(s: String, condition: (Char) -> Boolean): Boolean {
+  for (c in s) {
+    if (!condition(c)) return false
+  }
+  
+  return true
+}
+
+fun isCapitalLetter(c: Char) = c.isUpperCase() && c.isLetter()
+
+fun main13() {
+  println(check3("Hello") { c -> isCapitalLetter(c) }) // false
+  // 또는 
+  println(check3("Hello") { isCapitalLetter(it) }) // false
+}
+
+fun main14() {
+  // ::isCapitalLetter을 넘겨줄 수 있다.
+  println(check("Hello", ::isCapitalLetter)) // false
+}
+```
+
+
+```kotlin
+class Person(val firstName: String, val familyName: String)
+
+fun main16() {
+  val createPerson= ::Person //클래스 생성자에 대한 callable reference
+  createPerson("John", "Doe")
+}
+```
+
+## 인라인 함수
+- 함수값, 고차 함수를 사용하면 함수가 객체로 표현되기 때문에 부가 비용이 발생한다. 
+    - 함숫값을 사용할 때 발생하는 런타임 비용을 줄일 수 있는 해법
+- `inline`이 붙은 코틀린 함수는 가능하면 항상 인라인이 되며, 불가능한 경우 컴파일 오류로 간주된다.
+    - `inline`이 붙은 함수의 파라미터로 전달되는 함숫값도 인라인되기 때문에, 인라인하지 않기를 원하는 경우에 `noinline`을 붙일 수 있다.
+    - `crossinline`이라는 것을 붙여 람다 안에서 비지역 return을 사용하지 못하게 막을 수도 있다.
+
+
+```kotlin
+inline fun forEach3(a: IntArray, noinline action: ((Int) -> Unit)?) {
+  if (action == null) return
+  for (n in a) action(n)
+}
+
+```    
+
+# 확장
+- 코틀린은 마치 멤버인 것처럼 쓸 수 있는 함수나 프로퍼티를 클래스 밖에서 선언할 수 있게 해주는 '확장' 이라는 기능을 제공
+- 확장을 사용하면 기존 클래스를 변경하지 않아도 새로운 기능으로 기존 클래스를 확장할 수 있기 때문에, OCP를 지원할 수 있다.
+
+## 확장 함수
+
+```kotlin
+// 함수를 정의할 때, 수신 객체의 클래스 이름을 먼저 표시해야 한다.
+// 수신 객체가 속한 클래스의 비공개 멤버에는 접근할 수 없다.
+fun String.truncate(maxLength: Int): String {
+  return if (length <= maxLength) this else substring(0, maxLength)
+}
+
+fun main27() {
+  println("Hello".truncate(10)) // Hello
+  println("Hello".truncate(3))  // Hel
+}
+```
+
+## 확장 프로퍼티
+
+```kotlin
+// IntRange에 대해 leftHalf라는 확장 프로퍼티를 정의
+val IntRange.leftHalf: IntRange
+  get() = start..(start + endInclusive)/2
+
+fun main29() {
+  println((1..3).leftHalf) // 1..2
+  println((3..6).leftHalf) // 3..4
+}
+
+```
+
+## 동반 확장
+- 동반 객체에 대한 확장 함수를 정의할 수도 있다.
+    - 동반 객체가 존재하는 경우에만
+
+```kotlin
+fun IntRange.Companion.singletonRange(n: Int) = n..n
+
+fun main33() {
+  println(IntRange.singletonRange(5))           // 5..5
+  println(IntRange.Companion.singletonRange(3)) // 3..3
+}
+```
+
+## 수신 객체 지정 함수 타입
+- functional type with receiver
+- 도메인 특화 언어(DSL) 같은 API를 구축할 때 강력한 도구를 제공한다.
+
+```kotlin
+// 'Int.'을 추가해서 수신 객체의 타입을 정의함
+// 이렇게 정의한 경우, 전달되는 람다는 암시적으로 수신 객체를 갖고, this를 사용해 객체에 접근할 수 있다.
+fun aggregate2(numbers: IntArray, op: Int.(Int) -> Int): Int {
+  var result = numbers.firstOrNull()
+      ?: throw IllegalArgumentException("Empty array")
+  
+  for (i in 1..numbers.lastIndex) result = result.op(numbers[i])
+  
+  return result
+}
+
+fun sum6(numbers: IntArray) = aggregate2(numbers) { op -> this + op }
+```
+
+
+## 수신 객체가 있는 호출 가능 참조
+- 수신 객체 지정 함수 타입을 써서 파라미터를 전달해주는 경우, callable reference를 사용해서 값을 넘겨줄 수 있다.
+
+```kotlin
+fun aggregate4(numbers: IntArray, op: Int.(Int) -> Int): Int {
+  var result = numbers.firstOrNull()
+      ?: throw IllegalArgumentException("Empty array")
+      
+  for (i in 1..numbers.lastIndex) result = result.op(numbers[i])
+  
+  return result
+}
+
+fun max(a: Int, b: Int) = if (a > b) a else b
+
+fun main36() {
+  println(aggregate4(intArrayOf(1, 2, 3, 4), ::max)) // callable reference
+}
+```
+
+## 영역 함수
+- 지역 변수를 명시적으로 선언하지 않고, 식의 값이 들어있는 암시적인 영역을 정의해서 코드를 단순화할 수 있는 경우가 있다.
+- run, let, with, apply, also 
