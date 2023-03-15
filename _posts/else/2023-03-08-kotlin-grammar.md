@@ -591,6 +591,7 @@ fun main36() {
 - 미리 정의된 상수들로 이루어진 제한된 집합을 표현하는 특별한 클래스
   - kotlin.Enum의 하위 클래스임
 - 멤버, 확장 함수, 프로퍼티 붙일 수 있다.
+
 ```kotlin
 enum class WeekDay {
   MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
