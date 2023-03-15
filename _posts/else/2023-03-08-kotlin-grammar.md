@@ -582,3 +582,100 @@ fun main36() {
 ## 영역 함수
 - 지역 변수를 명시적으로 선언하지 않고, 식의 값이 들어있는 암시적인 영역을 정의해서 코드를 단순화할 수 있는 경우가 있다.
 - run, let, with, apply, also 
+
+
+
+# 특별한 클래스
+
+## Enum
+- 미리 정의된 상수들로 이루어진 제한된 집합을 표현하는 특별한 클래스
+  - kotlin.Enum의 하위 클래스임
+- 멤버, 확장 함수, 프로퍼티 붙일 수 있다.
+```kotlin
+enum class WeekDay {
+  MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
+}
+
+fun WeekDay.isWorkDay() =
+  this == WeekDay.SATURDAY || this == WeekDay.SUNDAY
+
+fun main1() {
+  println(WeekDay.MONDAY.isWorkDay())   // false
+  println(WeekDay.SATURDAY.isWorkDay()) // true
+}
+```
+
+```kotlin
+enum class RainbowColor(val isCold: Boolean) { //생성자 추가 가능
+  RED(false), ORANGE(false), YELLOW(false),
+  GREEN(true), BLUE(true), INDIGO(true), VIOLET(true);
+  
+  val isWarm get() = !isCold
+}
+```
+
+## 데이터 클래스
+- 데이터를 저장하기 위한 목적으로 주로 쓰이는 클래스를 선언하는 유용한 기능을 제공
+- 컴파일러가 동등성을 비교하거나 String 변환 등의 기본 연산에 대한 구현을 자동으로 생성해준다.
+  - 정확히는 '주생성자'에 정의된 프로퍼티의 equals(), hashCode(), toString()등을 자동 생성해준다.
+- 구조 분해 선언(destructing declaration) 활용 가능
+- 코틀린 표준 라이브러리에서 Pair, Triple 데이터 클래스를 제공한다.
+
+```kotlin
+// data class로 선언하면 refernce가 아닌 '값'을 비교한다.
+// 프로퍼티 값의 비교도 equals() 메서드를 통한다.
+data class Person2(val firstName: String,
+                   val familyName: String,
+                   val age: Int)
+
+fun main11() {
+  val person1 = Person2("John", "Doe", 25)
+  val person2 = Person2("John", "Doe", 25)
+  val person3 = person1
+
+  println(person1 == person2) // true
+  println(person1 == person3) // true
+
+  // 구조 분해 선언 가능
+  // 주생성자의 각 프로퍼티 위치에 따라 매핑되는 위치가 결정된다. 
+  val (firstName, familyName, age) = person1;
+}
+```
+
+```kotlin
+fun main17() {
+  // 코틀린 표준 라이브러리에서 Pair, Triple 데이터 클래스를 제공한다.
+  val pair = Pair(1, "two")
+  
+  println(pair.first + 1)    // 2
+  println("${pair.second}!") // two!
+  
+  val triple = Triple("one", 2, false)
+  
+  println("${triple.first}!") // one!
+  println(triple.second - 1)  // 1
+  println(!triple.third)      // true
+}
+
+main17()
+```
+
+## 인라인 클래스(값 클래스)
+- 일반적인 원시 타입의 값과 마찬가지로 부가 비용 없이 쓸 수 있기에 **값 클래스**라고 부르기도 한다.
+- 인라인 클래스 객체를 사용하는 위치에 인라인 클래스 대신 인라인 클래스에 들어있는 값이 들어간다.
+
+```kotlin
+@JvmInline //JVM 백엔드를 사용하는 경우 @JvnInline을 명시적으로 붙여줘야 한다.
+// 인라인 클래스의 주생성자에는 불변 프로퍼티를 하나만 선언해야 한다.
+value class Dollar(val amount: Int) { 
+  fun add(d: Dollar) = Dollar(amount + d.amount)
+  val isDebt get() = amount < 0
+}
+
+fun main22() {
+  println(Dollar(15).add(Dollar(20)).amount) // 35
+  println(Dollar(-100).isDebt) // true
+}
+
+main22()
+```
