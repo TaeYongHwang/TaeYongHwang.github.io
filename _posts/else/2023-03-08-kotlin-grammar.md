@@ -31,6 +31,14 @@ categories: Else
 - 배열끼리 + 연산 사용 가능
     - e.g. intArrayOf(1, 2, 3) + intArrayOf(5, 6)
 
+## 리스트
+- 기본적인 List의 경우, immutable
+- 추가, 삭제 등의 처리가 필요하다면 MutableList를 사용해야 한다.
+
+```kotlin
+val listOfVehicleNames: MutableList<String> = mutableListOf()
+```
+
 ## 함수
 - 자바와 달리 unreachable code가 오류가 아님
     - 컴파일러에서 경고는 표시해준다.
