@@ -693,6 +693,88 @@ main22()
 
 # 컬렉션
 - 컬렉션을 조작하는 모든 연산이 인라인 함수이기 때문에, 함수 호출이나 람다 호출에 따른 부가 비용이 들지 않는다.
+- +, - 연산자 지원
+
+```kotlin
+val list5 = arrayListOf(1, 2, 3)
+
+// +, - 연산자
+list5 += 4
+list5 -= 3
+list5 += setOf(5, 6)
+list5 -= listOf(1, 2)
+
+// 원소 접근
+println(listOf(1, 2, 3).first { it > 2 })      // 31
+println(listOf(1, 2, 3).lastOrNull { it < 0 }) // null
+println(arrayOf("a", "b", "c").elementAtOrElse(1) { "???" }) // b
+
+// 조건 검사
+println(listOf(1, 2, 3, 4).all { it < 10 }) // true
+println(listOf(1, 2, 3, 4).none { it > 5 }) // true
+
+// 집계
+println(listOf(1, 2, 3, 4).count()) // 4
+println(listOf(1, 2, 3, 4).count { it < 0 }) // 0
+println(arrayOf("1", "2", "3").sumOf { it.toInt() }) // 6
+println(listOf(1, 2, 3).joinToString()) // 1, 2, 3
+println(intArrayOf(1, 2, 3, 4, 5).reduce { acc, n -> acc * n })  // 120
+
+println(
+  intArrayOf(1, 2, 3, 4).fold("") { acc, n -> acc + ('a' + n - 1) }
+) // abcd (reduce + 누적값의 초깃값을 정정)
+
+// 걸러내기
+// List: [green, blue]
+println(setOf("red", "green", "blue", "green").filter { it.length> 3 })
+
+val allStrings = ArrayList<String>()
+// green, blue 추가됨
+listOf("red", "green", "blue").filterTo(allStrings) { it.length> 3 }
+
+val (evens2, odds2) = listOf(1, 2, 3, 4, 5).partition { it % 2 == 0 }
+println(evens2) // [2, 4]
+println(odds2) // [1, 3, 5]
+
+// 변환
+println(setOf("red", "green", "blue").map { it.length }) // [3, 5, 4] 
+
+println(setOf("abc", "def", "ghi").flatMap { it.asIterable() }) // [a, b, c, d, e, f, g, h, i]
+
+println(
+  listOf(listOf(1, 2), setOf(3, 4), listOf(5)).flatten()
+) // [1, 2, 3, 4, 5]
+
+println(
+  listOf("red", "green", "blue").associateWith { it.length }
+) // {red=3, green=5, blue=4}
+
+println(
+  listOf("red", "green", "blue").associateBy { it.length }
+) // {3=red, 5=green, 4=blue}
+
+// 추출
+println(Array(6) { it*it*it }.slice(2..4)) // [8, 27, 64]
+
+println(List(6) { it*it }.take(2))         // [0, 1]
+
+println(List(6) { it*it }.drop(2))         // [4, 9, 16, 25]
+
+println(List(10) { it*it }.chunked(3)) // [[0, 1, 4], [9, 16, 25], [36, 49, 64], [81]]
+
+println(List(6) { it*it }.windowed(3)) // [[0, 1, 4], [1, 4, 9], [4, 9, 16], [9, 16, 25]] 슬라이딩 윈도우
+
+println(list20.zipWithNext()) // [(0, 1), (1, 4), (4, 9), (9, 16), (16, 25)]
+
+// 순서
+println(intArrayOf(5, 8, 1, 4, 2).sorted()) // [1, 2, 4, 5, 8]
+
+val array = intArrayOf(4, 0, 8, 9, 2).apply { sort() } // 원본 컬렉션을 변경하는 제자리 정렬(in place)을 수행 
+
+println(listOf(1, 2, 3, 4, 5).shuffled()) //임의의 순서로 재배치
+
+```
+
 
 ## 컬렉션 타입
 - 기본적으로 배열, 이터러블(iterable), 시퀀스(sequence), 맵(map)으로 구분
