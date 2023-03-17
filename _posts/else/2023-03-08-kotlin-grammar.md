@@ -689,3 +689,94 @@ fun main22() {
 
 main22()
 ```
+
+
+# 컬렉션
+- 컬렉션을 조작하는 모든 연산이 인라인 함수이기 때문에, 함수 호출이나 람다 호출에 따른 부가 비용이 들지 않는다.
+
+## 컬렉션 타입
+- 기본적으로 배열, 이터러블(iterable), 시퀀스(sequence), 맵(map)으로 구분
+
+### Iterable
+- 원소를 순회할 수 있는 iterator()라는 메서드를 제공
+  - 코틀린 for 루프에서는 해당 메서드를 통해 모든 이터러블 객체를 활용할 수 있다.  
+- 불변 / 가변(MutableIterable) 컬렉션을 구분한다.   
+  - 불변 컬렉션의 경우 covariance하다.
+  - e.g. T가 U의 하위 타입인 경우 Iterable\<T>도 Iterable\<U>의 하위 타입이다.
+
+### Sequence
+
+``` kotlin
+// to 연산자를 통해 key, value를 쉽게 넣어줄 수 있다.
+println(
+  mapOf(1 to "One", 2 to "Two").asSequence().iterator().next()
+)                                                        
+
+// 무한 시퀀스(단, 값 오버플로가 발생해서 음수와 양수를 왔다갔다 함): 1, 2, 4, 8,...
+val powers = generateSequence(1) { it*2 }
+
+// 유한 시퀀스: 10, 8, 6, 4, 2, 0
+val evens = generateSequence(10) { if (it >= 2) it - 2 else null }
+
+
+// SequenceScope가 수신 객체 타임인 확장 람다를 받는 sequence() 함수를 통해 빌더 구현
+// 각 부분에 속한 원소에 접근하는 경우에만 yield(), yieldAll() 이 호출된다.
+val numbers3 = sequence {
+  yield(0)
+  yieldAll(listOf(1, 2, 3))
+  yieldAll(intArrayOf(4, 5, 6).iterator())
+  yieldAll(generateSequence(10) { if (it < 50) it*3 else null })
+}
+```
+
+- 동일하게 iterator() 메서드 제공
+  - 시퀀스는 지연 연산을 가정하기 때문에 iterator() 의 의도가 Iterable과는 다름
+- 시퀀스 구현은 내부적이므로 외부에서 직접 사용할 수 없다.
+- 자바의 스트림과 비슷하다.
+  - asSequence()를 코틀린에서 확장 함수로 제공하며, 이 함수는 자바 스트림을 감사써 코틀린 시퀀스로 사용하게 해준다.
+
+## Comparable
+- 클래스가 Comparable을 사용하면 자동으로 \<, > 등의 연산을 쓸 수 있고, 컬렉션의 순서 연산에도 쓰인다.
+- compareTo() 구현은 equals() 구현과 의미가 일치해야 한다.
+
+```kotlin
+class Person(
+  val firstName: String,
+  val familyName: String,
+  val age: Int
+) : Comparable<Person> {
+  val fullName get() = "$firstName $familyName"
+  override fun compareTo(other: Person) = fullName.compareTo(other.fullName)
+}
+```
+
+## Comparator
+
+```kotlin
+val AGE_COMPARATOR = Comparator<Person>{ p1, p2 ->
+  p1.age.compareTo(p2.age)
+}
+
+val AGE_COMPARATOR2 = compareBy<Person>{ it.age }
+val REVERSE_AGE_COMPARATOR = compareByDescending<Person>{ it.age }
+```
+
+## 컬렉션 생성
+
+```kotlin
+val list3 = ArrayList<String>()
+
+val set1 = HashSet<Int>()
+
+val map = java.util.TreeMap<Int, String>()
+
+val emptyList = emptyList<String>()
+
+val singletonSet = setOf("abc")
+
+val mutableList = mutableListOf("abc")
+
+val sortedSet = sortedSetOf(8, 5, 7, 1, 4)
+
+val numbers = MutableList(5) { it*2 }
+```
