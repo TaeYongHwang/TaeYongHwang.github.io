@@ -862,3 +862,26 @@ val sortedSet = sortedSetOf(8, 5, 7, 1, 4)
 
 val numbers = MutableList(5) { it*2 }
 ```
+
+
+# 파일과 I/O 스트림
+
+- 코틀린 표준 라이브러리는 JDK에 이미 있는 I/O 관련 클래스를 더 쉽게 사용할 수 있도록 해주는 확장 함수와 확장 프로퍼티를 제공한다.
+
+```kotlin
+import java.io.*
+
+fun main() {
+  FileWriter("data.txt").use { it.write("One\nTwo\nThree") }
+  
+  // One
+  FileReader("data.txt").buffered().use { println(it.readLine()) }
+  
+  // One Two Three
+  // use 메서드는 인자로 전달받은 람다를 실행하고 나서 마지막에 자원을 적절히 정리해준 후 람다의 결과를 돌려준다. (Java의 try-with-resources 와 같은 역할)
+  FileReader("data.txt").use { println(it.readText().replace('\n', ' ')) }
+  
+  // [One, Two, Three]
+  println(FileReader("data.txt").readLines())
+}
+```
