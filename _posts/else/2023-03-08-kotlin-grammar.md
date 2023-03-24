@@ -885,3 +885,123 @@ fun main() {
   println(FileReader("data.txt").readLines())
 }
 ```
+
+
+# 클래스 계층 이해
+
+## 상속
+- 자바와 마찬가지로 단일 상속만을 지원한다.
+- data 클래스는 open으로선언할 수 없지만, 다른 클래스를 상속하는 건 가능하다.
+- inline 클래스는 상속 하는/받는 것 전부 불가능하다.
+- object는 open class를 상속할 수는 있지만, object를 상속하거나 opbejct를 open으로 선언할 수 없다.
+
+
+### 기본 구조
+```kotlin
+// open : 상속에 대해서 열려 있다. (코틀린에선 default가 자바 final class임)
+open class Vehicle {
+  var currentSpeed = 0
+  
+  //메서드를 open으로 지정해야 Override 가능
+  open fun start() {
+    println("I’m moving")
+  }
+  
+  fun stop() {
+    println("Stopped")
+  }
+}
+
+// <하위_클래스: 상위_클래스> 형태로 선언하는 게 상속 문법
+// Vehicle() 형태로 괄호를 붙이는 이뉴는 상위 클래스 생성자를 호출하기 위해서임 
+open class FlyingVehicle : Vehicle() {
+  fun takeOff() {
+    println("Taking off")
+  }
+  fun land() {
+    println("Landed")
+    
+    //override 키워드를 통해 메서드 오버라이딩
+    override fun start() {
+      println("I’m flying")
+    }
+}
+```
+
+### 확장 함수에 대해
+```kotlin
+open class Vehicle3 {
+  // 멤버 함수는 런타임에 인스턴스의 구체적인 타입에 따라 어떤 구현이 호출될지 결정할 수 있다.
+  open fun start() {
+    println("I'm moving")
+  }
+}
+
+// 그러나, 확장 함수는 항상 정적으로 호출할 대상이 결정된다.
+fun Vehicle3.stop() {
+  println("Stopped moving")
+}
+
+class Car2 : Vehicle3() {
+  override fun start() {
+    println("I'm riding")
+  }
+}
+
+fun Car2.stop() {
+  println("Stopped riding")
+}
+
+fun main2() {
+  val vehicle: Vehicle3 = Car2()
+  vehicle.start() // I’m riding
+  vehicle.stop() // Stopped moving [Vehicle3라는 정적 타입에 의해 결정됨]
+}
+
+```
+
+### 하위 클래스 초기화
+- 초기화는 상위 클래스로부터 하위 클래스 순서로 진행된다.
+- 코틀린에서는 생성자간의 호출을 위해 항상 위임 호출(delegating call) 구문을 사용해야 한다.
+
+```kotlin
+open class Person5 {
+  val name: String
+  val age: Int
+  
+  constructor(name: String, age: Int) {
+    this.name = name
+    this.age = age
+  }
+}
+
+// 하위클래스에서 상위 클래스의 주생성자, 부생성자 모두 동일한 방식으로 호출 가능하다
+class Student2(name: String, age: Int, val university: String) :
+    Person5(name, age)
+
+```
+
+```kotlin
+open class Person6(val name: String, val age: Int)
+
+class Student3 : Person6 {
+  val university: String
+
+  // 하위 클래스에서 부생성자를 사용하는 경우 
+  // -> 위임 호출을 생성자 시그니처 바로 뒤에 위치시겨야 한다.
+  constructor(name: String, age: Int, university: String) :
+    super(name, age) {
+    this.university = university
+  }
+}
+
+```
+
+### 타입 검사와 캐스팅
+
+```kotlin
+// 타입 검사를 위한 is 연산자 제공
+// 왼쪽 피연산자의 정적 타입이 오른쪽에 오는 타입의 상위 타입인 경우에만 사용 가능
+println(null is Int)     // false
+println(null !is String) // true
+```
