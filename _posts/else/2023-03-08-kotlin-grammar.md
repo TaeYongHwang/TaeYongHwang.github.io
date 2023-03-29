@@ -1004,4 +1004,187 @@ class Student3 : Person6 {
 // 왼쪽 피연산자의 정적 타입이 오른쪽에 오는 타입의 상위 타입인 경우에만 사용 가능
 println(null is Int)     // false
 println(null !is String) // true
+
+
+val objects3 = arrayOf("1", 2, "3", 4)
+var sum2 = 0
+
+// is를 이용해서도 스마트 캐스팅이 가능하다.
+for (obj in objects3) {
+  when (obj) {
+    is Int -> sum2 += obj            // 여기서 obj는 Int 타입이다
+    is String -> sum2 += obj.toInt() // 여기서 obj는 String 타입이다
+  }
+}
+println(sum2) // 10
+```
+
+```kotlin
+val o: Any = 123
+
+// 타입을 강제로 변환하는 as, as? 제공
+// as : 일치하지 않는 경우 예외
+// as? : 일치하지 않는 경우 null
+println((o as Int) + 1)              // 124
+println((o as? Int)!! + 1)           // 124
+println((o as? String ?: "").length) // 0
+//println((o as String).length)        // java.lang.ClassCastException
+```
+
+
+### Any
+- 코틀린 클래스 계층 구조의 루트
+- 자바 Object를 최소화한 버전
+  - 실제로, JVM에서 Any의 런타임 값은 Object 인스턴스로 표현된다.
+```kotlin
+public open class Any {
+
+    //operator 키워드는 ==, != 로 호출될 수 있다는 뜻
+    // === 키워드로 참조 동등성을 계속 판단할 수 있고, 이는 오버라이딩 불가.
+    public open operator fun equals(other: Any?): Boolean
+
+    public open fun hashCode(): Int
+
+    public open fun toString(): String
+}
+```
+
+## 추상 클래스와 인터페이스
+
+### 추상 클래스
+- 추상 클래스의 생성자는 오직 하위 클래스의 생성자에서 위임 호출로만 호출될 수 있다.
+
+```kotlin
+abstract class Entity8(val name: String)
+
+// Ok: 하위 클래스에서 위임 호출
+class Person15(name: String, val age: Int) : Entity8(name)
+
+// error: cannot create an instance of an abstract class 
+//val entity = Entity8("Unknown")
+```
+
+- 하위 구체 클래스에서 반드시 멤버를 오버리이드해서 구현을 제공해야 한다.
+
+```kotlin
+abstract class Shape {
+  abstract val width: Double
+  abstract val height: Double
+  abstract fun area(): Double
+}
+
+class Circle(val radius: Double) : Shape() {
+  val diameter get() = 2*radius
+  override val width get() = diameter
+  override val height get() = diameter
+  override fun area() = PI*radius*radius
+}
+```
+
+### 인터페이스
+- 메서드나 프로퍼티를 포함하지만 자체적인 인스턴스 상태나 생성자를 만들 수 없는 타입
+- java와는 다르게, 똑같은 `:` 기호를 이용해 표시한다.
+
+```kotlin
+// interface로 시작,
+interface Vehicle9 {
+  val currentSpeed: Int
+
+  // default가 추상 멤버임
+  fun move()
+  fun stop()
+}
+
+interface FlyingVehicle2 : Vehicle9 {
+  val currentHeight: Int
+  fun takeOff()
+  fun land()
+}
+
+interface Vehicle10 {
+  val currentSpeed: Int
+  
+  // 구현을 제공할 수도 있다.
+  val isMoving get() = currentSpeed != 0
+  
+  fun move()
+  
+  fun stop()
+  
+  fun report() {
+    println(if (isMoving) "Moving at $currentSpeed" else "Still")
+  }
+}
+
+// 인터페이스 멤버를 final로 선언할 수 없기에, final로 선언하고 싶은 기능은 확장 함수로 대체할 수 있다.
+fun Vehicle10.relativeSpeed(vehicle: Vehicle10) =
+  currentSpeed - vehicle.currentSpeed
+```
+
+### sealed class (봉인된 클래스)
+- 어떤 클래스를 `sealed`로 지정하면, 이 클래스를 상송하는 클래스는 내포된 클래스 또는 객체로 정의되거나 같은 파일 안에서 최상위 클래스로 정의돼야만 한다.
+
+- `sealed class`의 인스터스를 만들 때는 하위 크래스 중 하나를 선택해 만들어야 한다.
+
+```kotlin
+sealed class Result3 {
+  class Success(val value: Any) : Result3() {
+    fun showResult() {
+      println(value)
+    }
+  }
+  
+  class Error(val message: String) : Result3() {
+    fun throwException() {
+      throw Exception(message)
+    }
+  }
+}
+
+
+// 사용. when 구문에서 else를 쓸 필요가 없다.
+val message = when (val result = runComputation3()) {
+  is Result3.Success -> "Completed successfully: ${result.value}"
+  is Result3.Error -> "Error: ${result.message}"
+}
+
+fun runComputation3(): Result3 {
+  try {
+    println("Input a int:")
+    val a = readLine()?.toInt()
+        ?: return Result3.Error("Missing first argument")
+	println("Input a int:")	
+    val b = readLine()?.toInt()
+        ?: return Result3.Error("Missing second argument")
+        
+    return Result3.Success(a + b)
+  } catch (e: NumberFormatException) {
+    return Result3.Error(e.message ?: "Invalid input")
+  }
+}
+```
+
+### 위임
+- `by` 키워드로 위임을 처리하는 기능을 내장하고 있다.
+  - 번거로운 준비 코드를 사용하지 않고도 객체 합성과 상속의 이점을 살릴 수 있다.
+  - **상속보다는 합성**이라는 객체지향 설계 원칙을 사용하도록 장려
+- 인터페이스 멤버를 구현할 때만 위임을 쓸 수 있다.
+
+
+```kotlin
+// Alias2가 PersonData 인터페이스에서 상속한 모든 멤버는 newIdentity 인스턴스에 있는 이름과 시그니처가 같은 메서드를 통해 구현된다.
+// 구현을 바꾸고 싶으면 오버라이딩할 수 도 있다.
+class Alias2(
+  private val realIdentity: PersonData,
+  private val newIdentity: PersonData
+) :PersonData by newIdentity {
+  override val age: Int get() = realIdentity.age
+}
+
+
+fun main22() {
+  val valWatts = Person17("Val Watts", 30)
+  val johnDoe = Alias2(valWatts, Person17("John Doe", 25))
+  println(johnDoe.age) // 30
+}
 ```
