@@ -1188,3 +1188,4 @@ fun main22() {
   println(johnDoe.age) // 30
 }
 ```
+
