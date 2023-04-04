@@ -1188,3 +1188,116 @@ fun main22() {
 }
 ```
 
+
+
+
+# 제네릭스
+
+## 타입 파라미터
+
+- 코틀린에서는 자바와 다르게, raw type을 허용하지 않는다.
+
+### 제네릭 선언
+
+```kotlin
+class TreeNode<T>(val data: T) { // 클래스 타입 파라미터 T
+  private val _children = arrayListOf<TreeNode<T>>()
+  var parent: TreeNode<T>? = null
+  
+  private set
+  
+  val children: List<TreeNode<T>>get() = _children
+  
+  fun addChild(data: T) = TreeNode(data).also {
+    _children += it
+    it.parent = this
+  }
+  
+  override fun toString() =
+    _children.joinToString(prefix = "$data {", postfix = "}")
+}
+```
+
+```kotlin
+// 함수를 제네릭으로 선언할 수도 있다.
+fun <T> TreeNode<T>.addChildren(vararg data: T) {
+  data.forEach { addChild(it) }
+}
+
+fun <T> TreeNode<T>.walkDepthFirst(action: (T) -> Unit) {
+  children.forEach { it.walkDepthFirst(action) }
+  action(data)
+}
+
+// 확장 프로퍼티를 제네릭으로 선언할 수도 있다.
+val <T> TreeNode<T>.depth: Int
+  get() = (children.asSequence().map { it.depth }.maxOrNull() ?: 0) + 1
+
+```
+
+### 바운드와 제약 
+
+``` kotlin
+// 타입 파라미터의 upper bound 선언 가능하다
+// 아래의 T는 Number or 그 하위타입
+fun <T : Number>TreeNode<T>.average(): Double { 
+  var count = 0
+  var sum = 0.0
+  walkDepthFirst {  // 깊이 우선으로 노드를 방문하면서 함수 수행
+    count++
+    sum += it.toDouble()
+  }
+  return sum/count
+}
+
+
+// 여러 상위 바운드를 where절을 통해 지정할 수 있다.
+// 아래의 T는 Named, Identified를 동시에 만족해야 한다.
+class Registry<T> where T : Named, T : Identified {
+  val items = ArrayList<T>()
+}
+
+
+```
+
+
+### 타입 소거와 구체화
+
+- JVM에서 타입 인자에 대한 정보는 코드에서 지워지고(타입 소거) 같은 타입으로 합쳐진다.
+  - e.g. List\<String>, List\<Number>는 List라는 동일한 타입으로 합쳐진다.
+
+```kotlin
+// *은 알지 못하는 타입을 의미
+// 리스트, 맵인지만 확인하고 싶을 때
+list is List<*>
+map is Map<*,*>
+```
+
+- **구체화한 타입 파라미터** 
+  - 타입 파라미터를 소거하지 않고 런타임까지 유지하는 방법이 있다.
+  - 인라인한 함수에 대해서만 사용 가능
+  - 안전하고 빠르지만, 컴파일된 코드의 크기가 커지는 경향이 있다.
+
+```kotlin
+fun <T>TreeNode<T>.cancellableWalkDepthFirst(
+  onEach: (T) -> Boolean
+): Boolean {
+  // 자바 LinkedList는 Deque를 구현하고 있어서 스택으로도 사용 가능함
+  val nodes = java.util.LinkedList<TreeNode<T>>() 
+  
+  nodes.push(this)
+  
+  while (nodes.isNotEmpty()) {
+    val node = nodes.pop()
+    if (!onEach(node.data)) return false
+      node.children.forEach { nodes.push(it) }
+  }
+  
+  return true
+}
+
+// reified 키워드로 해당 타입 파라미터를 지정해야 한다.
+inline fun <reified T> TreeNode<*>.isInstanceOf() =
+  cancellableWalkDepthFirst{ it is T }
+
+```
