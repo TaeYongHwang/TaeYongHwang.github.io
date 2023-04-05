@@ -1301,3 +1301,55 @@ inline fun <reified T> TreeNode<*>.isInstanceOf() =
   cancellableWalkDepthFirst{ it is T }
 
 ```
+
+
+## 변성
+- 코틀린에서, 배열과 가변 컬렉션은 타입 인자의 하위 타입 관계를 유지하지 않는다.(invariant)
+  - default가 invariant 한 것임.
+  - but, 불변 컬렉션의 경우 타입 파라미터의 하위 타입 관계가 컬렉션 타입에서도 유지된다. (covariant) 
+  - e.g. List\<String>은 List\<Any>의 하위 타입
+  - 자바에서는 배열의 경우 covariant하지만, 코틀린의 경우에는 invariant하다.
+
+- Java의 extends는 kotlin의 out에, super는 in에 대응한다고 생각하면 된다.
+  -  `producer-out, consumer-in`
+
+### 선언 지점 변성
+- 타입 파라미터의 변성을 선언 자체에 지정
+- 어떤 타입 파라미터가 항상 out 위치에서 쓰이는 경우에만 타입 파라미터를 공변젹으로 선언할 수 있다.
+- in 위치는 값을 함수 인자나 제네릭 타입의 반공변 타입 인자로 소비하는 경우를 뜻함 (contravariance)
+
+
+### 시용 지점 변성
+- 타입 인자를 치환하는 사용 지점에서 타입 파라미터의 변정을 지정
+  - 사용하는 위치에서 특정 타입 인자 앞에 in/out을 붙인다.(프로젝션)
+- 일반적으로는 invariant하지만, 문맥에 따라 생산자나 소비자로만 쓰이는 경우에 유용
+
+
+### 스타 프로젝션
+- 타입 인자가 타입 파라미터의 바운드 안에서 아무 타입이나 될 수 있다는 사실을 표현
+- 자바의 `?` 와일드카드에 대응한다.
+```kotlin
+// List의 원소 타입은 `Any?`에 의해 제한되므로 아무 리스트나 가능함
+val anyList: List<*> = listOf(1, 2, 3)
+
+// 자기 자신과 비교가능한 아무 객체나 가능(T : Comparable<T> 바운드에 의해)
+val anyComparable: Comparable<*> = "abcde"
+```
+
+
+### 타입 별명(type alias)
+
+```kotlin
+typealias IntPredicate = (Int) -> Boolean
+typealias IntMap = HashMap<Int, Int>
+
+// typealias로 선언한 타입으로 대신 사용할 수 있다.
+fun readFirst(filter: IntPredicate) =
+  generateSequence{ readLine()?.toIntOrNull() }.firstOrNull(filter)
+
+
+// 제네릭도 가능
+typealias ThisPredicate<T> = T.() -> Boolean
+typealias MultiMap<K, V> = Map<K, Collection<V>>
+```
+
