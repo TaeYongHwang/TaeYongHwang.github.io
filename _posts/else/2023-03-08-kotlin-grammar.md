@@ -1328,6 +1328,7 @@ inline fun <reified T> TreeNode<*>.isInstanceOf() =
 ### 스타 프로젝션
 - 타입 인자가 타입 파라미터의 바운드 안에서 아무 타입이나 될 수 있다는 사실을 표현
 - 자바의 `?` 와일드카드에 대응한다.
+
 ```kotlin
 // List의 원소 타입은 `Any?`에 의해 제한되므로 아무 리스트나 가능함
 val anyList: List<*> = listOf(1, 2, 3)
