@@ -1354,3 +1354,113 @@ typealias ThisPredicate<T> = T.() -> Boolean
 typealias MultiMap<K, V> = Map<K, Collection<V>>
 ```
 
+
+# 애너테이션
+
+- 자바 애너테이션과 마찬가지로 코틀린 애너테이션도 런타임에 접근할 수 있다.
+- 자바와 달리 코틀린 애너테이션을 `식`에 적용할 수도 있다.
+
+```kotlin
+val s = @Suppress("UNCHECKED_CAST") objects as List<String>  // objects가 없어서 컴파일은 안됨
+
+// 여러 애노테이션을 붙이고 싶다면 []로 애너테이션을 감쌀 수 있다.
+@[Synchronized Strictfp] // @Synchronized @Strictfp와 같은 역할을 함
+fun main() { }
+
+// 주생성자에 애너테이션을 적용하고 싶은 경우, constructor 키워드를 붙여야 한다.
+class A @MyAnnotation constructor ()
+```
+
+## 애너테이션 정의
+
+- 애너테이션을 정의하려면 클래스 앞에 `annotation`이라는 변경자를 붙여야 한다.
+- 자바 애너테이션은 인터페이스로 구성되지만, `코틀린 애너테이션은 특별한 종류의 클래스로 구성`된다.
+
+```kotlin
+annotation class MyAnnotation
+
+class A @MyAnnotation constructor ()
+
+
+// 코틀린 1.3부터 내포된 클래스, 인터페이스, 객체(동반 객체 포함)를 애너테이션 본문에 넣을 수 있다.
+annotation class MyAnnotation3 {
+  companion object {
+    val text = "???"
+  }
+}
+
+//애너테이션에 val 커스텀 애트리뷰트를 추가할 수 있다.
+annotation class MyAnnotation4(val text: String) 
+@MyAnnotation4("Some useful info") fun annotatedFun2() { }
+```
+
+## 특정 대상에 대한 애너테이션 지정
+
+- 코틀린에서는 애너테이션을 사용하는 시점에 어떤 대상에 대해 애너테이션을 붙이는지 지정할 수 있다.
+
+```kotlin
+// getter에 애너테이션 지정 
+@Target(AnnotationTarget.PROPERTY_GETTER)
+annotation class AA
+
+@Target(AnnotationTarget.PROPERTY_GETTER)
+annotation class BB
+
+class Person2(@get:AA val name: String)
+
+class Person3(@get:[AA BB] val name: String)
+
+class Person4(@get:AA @get:BB val name: String)
+
+// 확장 함수나 프로퍼티의 수신 객체에 애너테이션 지정
+annotation class AAA
+fun @receiver:AAA Person5.fullName() = "$firstName $familyName"
+
+// 전체 파일에 대해 애너테이션 지정
+@file:JvmName("MyClass") // 이 줄은 파일 맨 앞에 있어야 한다.
+```
+
+- 지정 가능 대상
+  - property : 프로퍼티 자체를 대상으로
+  - field : 뒷받침하는 필드를 대상으로
+  - get : 프로퍼티 게터를 대상으로
+  - set : 프로퍼티 세터를 대상으로
+  - param : 생성자 파라미터를 대상으로 (val, var 붙은 파라미터만 대상)
+  - setparam: 프로퍼티 세터의 파라미터를 대상으로 (가변 프로퍼티에만)
+  - delegate: 위임 객체를 저장하는 필드를 대상으로 (위임 프로퍼티에만)
+  - ...
+
+## 내장 애너테이션
+
+- 자바 언어의 메타 애너테이션과 비슷한 역할을 한다.
+
+- `@Retention`
+  - 애너테이션이 저장되고 유지되는 방식을 제어
+  - SOURCE : 컴파일 시점에만 존재하며, 컴파일러의 바이너리 출력에는 저장되지 않는다.
+  - BINARY : 컴파일러의 바이너리 출력에 저장되지만, 런타임에 리플렉션 API로 관찰할 수는 없다.
+  - RUNTIME(default) : 컴파일러의 바이너리 출력에 저장되며, 런타임에 리플렉션 API로 관찰할 수도 있다.
+
+- `@MustBeDocumented`
+  - 애너테이션을 문서에 꼭 포함시키라는 의미
+  - 코틀린 표준 문서화 엔진인 Dokka에 의해 지원된다.
+
+- `@Target`
+  - 애노테이션을 어떤 언어 요소에 붙을 수 있는지 지정
+
+- `@Deprecated`
+  - 사용 금지 예정 대상을 대신할 수 있는 식을 지정해줄 수도 있다.
+  
+  ``` kotlin
+  @Deprecated(
+  "Use readInt() instead", // 메시지
+  ReplaceWith("readInt()"), // 대안
+  DeprecationLevel.ERROR // 해당 메서드 사용시 컴파일 오류로 처리
+  )
+  fun readNum() = readLine()!!.toInt()
+  ```
+
+- ...
+
+
+# 리플렉션
+
