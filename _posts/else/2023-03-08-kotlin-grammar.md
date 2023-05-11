@@ -1463,4 +1463,9 @@ fun @receiver:AAA Person5.fullName() = "$firstName $familyName"
 
 
 # 리플렉션
+- 필요할 때 정리 예정
+
+
+# 도메인 특화 언어
+
 
