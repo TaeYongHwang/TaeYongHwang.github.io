@@ -1468,4 +1468,139 @@ fun @receiver:AAA Person5.fullName() = "$firstName $familyName"
 
 # 도메인 특화 언어
 
+- 도메인 특화 언어는 특정 기능이나 영역을 위해 만들어진 언어를 뜻한다.
+- 코틀린으로 도메인 특화 언어를 닮은 특별한 API를 설계할 수 있다.
+  - 이를 통해, 컴파일 언어의 능력과 도메인 특화 언어를 사용한 접근 방식의 장점을 모두 취할 수 있다.
+
+## 연산자 오버로딩
+
+- 코틀리 내장 연산자에 대해 새로운 의미를 부여할 수 있게 해주는 언어 기능.
+- `+, -, *, /, ++, --, +(단항), -(단항), !(단항), ...`
+
+```kotlin
+// * 연산자는 times() 함수에 해당한다.
+operator fun String.times(n: Int) = repeat(n)
+```
+
+## 구조 분해
+
+- `componentN()` 이름의 컴포넌트 함수를 멤버 함수나 확장 함수로 정의하면 된다.
+
+```kotlin
+operator fun RationalRange.component1() = from // 1/3
+operator fun RationalRange.component2() = to // 1/2
+
+
+fun main() {
+  val (fromVal, toVal) = r(1,3)..r(1,2)
+
+  println(fromVal) // 1/3
+  println(toVal) // 1/2
+
+}
+```
+
+## 위임 프로퍼티
+
+- 위임 프로퍼티를 사용하면 커스텀 프로터피 접근 로직을 구현할 수 있다.
+
+```kotlin
+// 위에서 살펴본 lazy 위임 프로퍼티
+// 최초 접근 시까지 프로퍼티 계산을 지연시킴
+val result by lazy { 1+ 2}
+```
+
+### 표준 위임
+
+- lazy()
+  - 다중 스레드 환경에서 지연 계산 프로퍼티의 동작을 미세하게 제어하기 위해 세 가지 버전을 가지고 있다.
+  - SYNCHRONIZED, PUBLICATION, NONE
+  
+- `kotlin.properties.Delegates`의 멤버를 통해 몇 가지 표준 위임을 사용할 수 있다.
+
+#### notNull()
+  - 기본적으로 `lateinit` 프로퍼티와 같다.
+  - notNull() 위임 프로퍼티를 초기화하지 않고 읽으면 `IlleagalStateException` 발생
+  - 원시 타입인 경우에 `lateinit` 대체해서 적용한다. (그 외에는 lateinit사용)
+
+  ```kotlin
+  import kotlin.properties.Delegates.notNull
+
+  var text3: String by notNull()
+  fun readText() {
+    println("Input a text and press endter: ")
+    text3 = readLine()!!
+  }
+
+  fun main3() {
+    readText()
+    println(text3)
+  }
+  ```
+
+#### observable()
+  - 프로퍼티 값이 변경될 때 통지를 받을 수 있다.
+  - 동일한 값으로 변경되더라도 통지가 온다.
+
+  ```kotlin
+  class Person(name: String, val age: Int) {
+    var name: String by observable(name) { property, old, new ->
+      println("Name changed: $old to $new")
+    }
+  }
+
+  fun main5() {
+    val person = Person("John", 25)
+  
+    person.name = "Harry"   // Name changed: John to Harry
+    person.name = "Vincent" // Name changed: Harry to Vincent
+    person.name = "Vincent" // Name changed: Vincent to Vincent
+  }
+  ```
+
+#### vetoable()
+  - 프로퍼티 값을 변경하려고 시도할 때마다 값을 변경하기 직전에 람다가 호출되고, 람다가 true를 반환하면 실제 값 변경이 일어난다.
+
+  ```kotlin
+  var password: String by vetoable("password") { _, _, new ->
+    if (new.length< 8) {
+      println("Password should be at least 8 characters long")
+      false
+    } else {
+      println("Password is Ok")
+      true
+    }
+  }
+
+  fun main6() {
+    password = "pAsSwOrD" // Password is Ok
+    password = "qwerty"   // Password should be at least 8 characters long 표시됨
+  }
+  ```
+
+### 맵에 프로퍼티 값을 설정하고 읽어올 수 있는 위임기능
+  - map 인스턴스를 위임 객체로 사용하면 된다.
+  - 그러나, map 위임은 타입 안전성을 해칠 수도 있기에 조심해서 사용해야 한다.
+    - 원하는 타입의 값이 아니면 프로퍼티 접근이 캐스트 예외와 함께 끝나버린다.
+
+  ```kotlin
+  class CartItem(data: Map<String, Any?>) {
+    val title: String by data
+    val price: Double by data
+    val quantity: Int by data
+  }
+
+  fun main7() {
+    val item = CartItem(mapOf(
+      "title" to "Laptop",
+      "price" to 999.9,
+      "quantity" to 1
+    ))
+  
+    println(item.title)    // Laptop
+    println(item.price)    // 999.9
+    println(item.quantity) // 1
+  }
+  ```
+
 
