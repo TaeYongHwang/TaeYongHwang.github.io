@@ -1603,4 +1603,28 @@ val result by lazy { 1+ 2}
   }
   ```
 
+  ### 커스텀 위임 만들기
+  - 필요할 떄 정리예정
+
+
+  ### 위임 표현
+  - 런타임에 위임이 어떻게 표현되고, 어떻게 접근할 수 있는지
+
+  ```kotlin
+  // 기존 코드
+  class Person(val firstName: String, val familyName: String) {
+    var age: Int by finalLateInit()
+  }
+
+  // 런타임시에 변환
+  class Person(val firstName, val familyName: String) {
+    private val `age$delegate` = finalLateInit<Person, Int>() //코틀린 코드에서는 age$delegate 같은  위임 필드를 직접 명시적으로 사용할 수 없다.
+    set(value) {
+      `age$delegate`.setValue(this, this::age, value)
+    }
+  }
+
+  ```
+
+
 
